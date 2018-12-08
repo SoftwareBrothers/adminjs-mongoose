@@ -27,6 +27,10 @@ class Resource extends BaseResource {
     return this.MongooseModel.db.name
   }
 
+  databaseType() {
+    return 'mongodb'
+  }
+
   name() {
     return this.MongooseModel.modelName
   }
