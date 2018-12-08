@@ -3,6 +3,7 @@ const {
   BaseRecord,
   ValidationError,
 } = require('admin-bro')
+const _ = require('lodash')
 
 const Property = require('./property')
 
@@ -13,6 +14,10 @@ const MONGOOSE_VALIDATION_ERROR = 'ValidationError'
  * Adapter for mongoose resource
  */
 class Resource extends BaseResource {
+  static isAdapterFor(MoongooseModel) {
+    return _.get(MoongooseModel, 'base.constructor.name') === 'Mongoose'
+  }
+
   constructor(MongooseModel) {
     super(MongooseModel)
     this.MongooseModel = MongooseModel
