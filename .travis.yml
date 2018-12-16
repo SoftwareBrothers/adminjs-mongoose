@@ -1,0 +1,18 @@
+language: node_js
+services:
+- mongodb
+env:
+- MONGO_URL=mongodb://127.0.0.1/admin-bro-mongoose NODE_ENV=test
+node_js:
+- '8'
+script:
+- yarn run lint
+- yarn test
+deploy:
+  provider: npm
+  email: wojciech.g.krysiak@gmail.com
+  api_key:
+    secure: HQk1uaTEXD9q0pFwjJfjjx3QPgKmIe4lGN2Y750MCQHCTTR4Oq+ILy2O4twI4v1CEJKBejjaV66X1hfb29dKwZne+0NtPnjPvpRHSllSZI8P4gfLhM2mz4RremMteCUeP1CmUE7jdw1EdlpSZBONA2HMjowzCTHPBlIplh+LDDtekyctDd8tUwNE3LizazX1CgSASwpkB4ZuU9BFmZ8qPwgoe0vy4h6bDINCYwkXS4fVA+bryu3yNSkCU4QbJfxE2Tg6nrPqloVlcgF7BEq4G3CVQoQq7QQWmte1U4Ctb4mpBZf08jiB8OQ7y09idCZPLhd2vTsOckAlBaL+q1jA3wkw0aPmawD/Rj+XBCUUUjUpJTK9dM7ejUqUvg4i6npqnnV90T5MTc/wNRB+as76kfcEMVJbQVcHweJ4IgLCiwPRJforHbw6CK3+pW8cb3Kzn4UZ0prU0m6IDiLt97BZRfRJftxrDNkvVYCfdEcUOZK3P8vwv9gLfyHf/2R/rJzsyDdqkHXGS7UflDWx1Ac2Z4eHpSy/DCo17r8+UlZ5n7qYops31neY49LXeNuDRi0QJJF7luQGyh4UXs4zMGOV8xBby0gXCF4cp91ANFFNAi/dkZsBSAZ34Ny/pJOL+hkilwxi2k7b2y2HrFDHPPo6ZKfAJzrhnLbP/B3p27Glq2w=
+  on:
+    tags: true
+    repo: SoftwareBrothers/admin-bro-mongoose

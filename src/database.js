@@ -12,9 +12,9 @@ class Database extends BaseDatabase {
   }
 
   resources() {
-    return this.connection.modelNames().map((name) => {
-      return new Resource(this.connection.model(name))
-    })
+    return this.connection.modelNames().map(name => (
+      new Resource(this.connection.model(name))
+    ))
   }
 }
 

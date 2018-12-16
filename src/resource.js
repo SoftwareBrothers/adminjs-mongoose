@@ -20,6 +20,7 @@ class Resource extends BaseResource {
 
   constructor(MongooseModel) {
     super(MongooseModel)
+    this.dbType = 'mongodb'
     this.MongooseModel = MongooseModel
   }
 
@@ -28,7 +29,7 @@ class Resource extends BaseResource {
   }
 
   databaseType() {
-    return 'mongodb'
+    return this.dbType
   }
 
   name() {
@@ -41,6 +42,7 @@ class Resource extends BaseResource {
 
   properties() {
     const properties = []
+    // eslint-disable-next-line no-unused-vars
     for (const [name, path] of Object.entries(this.MongooseModel.schema.paths)) {
       const prop = new Property(path)
       properties.push(prop)
@@ -117,7 +119,7 @@ class Resource extends BaseResource {
   createValidationError(originalError) {
     const errors = Object.keys(originalError.errors).reduce((memo, key) => {
       const { path, message, kind } = originalError.errors[key]
-      memo[path] = { message, kind }
+      memo[path] = { message, kind } // eslint-disable-line no-param-reassign
       return memo
     }, {})
     return new ValidationError(`${this.name()} validation failed`, errors)
