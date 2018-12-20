@@ -69,11 +69,13 @@ class Resource extends BaseResource {
       .skip(offset)
       .limit(limit)
       .sort(sortingParam)
-    return mongooseObjects.map(mongooseObject => new BaseRecord(this.convertMongooseObject(mongooseObject), this))
+    return mongooseObjects.map(mongooseObject => new BaseRecord(
+      this.convertMongooseObject(mongooseObject), this,
+    ))
   }
 
   async findOne(id) {
-    let mongooseObject = await this.MongooseModel.findById(id)
+    const mongooseObject = await this.MongooseModel.findById(id)
     return new BaseRecord(this.convertMongooseObject(mongooseObject), this)
   }
 
@@ -125,6 +127,7 @@ class Resource extends BaseResource {
     return new ValidationError(`${this.name()} validation failed`, errors)
   }
 
+  // eslint-disable-next-line class-methods-use-this
   convertMongooseObject(mongooseObj) {
     const obj = mongooseObj.toObject()
 
