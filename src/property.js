@@ -64,6 +64,8 @@ class Property extends BaseProperty {
       return 'string'
     case 'Decimal128':
       return 'float'
+    case 'TextEditor':
+      return 'textEditor'
     default:
       console.warn(`Unhandled type: ${this.mongoosePath.instance}`)
       return 'string'
