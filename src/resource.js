@@ -61,11 +61,19 @@ class Resource extends BaseResource {
     return this.MongooseModel.countDocuments()
   }
 
-  async find(query, { limit = 20, offset = 0, sort = {} }) {
+  convertedFilters(filters) {
+    const convertedFilters = {}
+    Object.keys(filters).map(key => {
+      convertedFilters[key] = new RegExp(filters[key], 'i')
+    })
+    return convertedFilters
+  }
+  // createdAt: { $gte: '2019-01-08T00:00:00.000Z', $lte: '2019-01-09T00:00:00.000Z' }
+  async find(filters, { limit = 20, offset = 0, sort = {} }) {
     const { direction, sortBy } = sort
     const sortingParam = { [sortBy]: direction }
     const mongooseObjects = await this.MongooseModel
-      .find({})
+      .find(this.convertedFilters(filters))
       .skip(offset)
       .limit(limit)
       .sort(sortingParam)
