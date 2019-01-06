@@ -4,6 +4,7 @@ const {
   ValidationError,
 } = require('admin-bro')
 const _ = require('lodash')
+const ObjectId = require('mongodb').ObjectID;
 
 const Property = require('./property')
 
@@ -62,13 +63,30 @@ class Resource extends BaseResource {
   }
 
   convertedFilters(filters) {
+    if(!filters) {
+      return {}
+    }
     const convertedFilters = {}
     Object.keys(filters).map(key => {
-      convertedFilters[key] = new RegExp(filters[key], 'i')
+      const currentFilter = filters[key]
+      if(currentFilter.from || currentFilter.to) {
+        const { from, to } = currentFilter
+        convertedFilters[key] = {
+          ...from && { $gte: from },
+          ...to && { $lte: to}
+        }
+      } 
+      else if(key.includes('_id')) {
+        convertedFilters[key] = filters[key]
+      } else {
+        convertedFilters[key] = {
+          '$regex' : filters[key], '$options' : 'i' 
+        } 
+      }
     })
+    console.log('converteed', convertedFilters)
     return convertedFilters
   }
-  // createdAt: { $gte: '2019-01-08T00:00:00.000Z', $lte: '2019-01-09T00:00:00.000Z' }
   async find(filters, { limit = 20, offset = 0, sort = {} }) {
     const { direction, sortBy } = sort
     const sortingParam = { [sortBy]: direction }
