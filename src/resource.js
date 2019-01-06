@@ -95,12 +95,14 @@ class Resource extends BaseResource {
       .skip(offset)
       .limit(limit)
       .sort(sortingParam)
-    return mongooseObjects.map(mongooseObject => new BaseRecord(mongooseObject.toObject(), this))
+    return mongooseObjects.map(mongooseObject => new BaseRecord(
+      this.convertMongooseObject(mongooseObject), this,
+    ))
   }
 
   async findOne(id) {
     const mongooseObject = await this.MongooseModel.findById(id)
-    return new BaseRecord(mongooseObject.toObject(), this)
+    return new BaseRecord(this.convertMongooseObject(mongooseObject), this)
   }
 
   build(params) {
@@ -149,6 +151,16 @@ class Resource extends BaseResource {
       return memo
     }, {})
     return new ValidationError(`${this.name()} validation failed`, errors)
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  convertMongooseObject(mongooseObj) {
+    const obj = mongooseObj.toObject()
+
+    // By default the _id field is an ObjectID, one of MongoDB's BSON
+    // We have to convert this field to string for the flatten record params
+    obj._id = obj._id.toString()
+    return obj
   }
 }
 
