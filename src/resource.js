@@ -62,22 +62,28 @@ class Resource extends BaseResource {
     return this.MongooseModel.find(this.convertedFilters(filters)).countDocuments()
   }
 
+  getDateFilter(filter) {
+    const { from, to } = filter
+    return {
+      ...from && { $gte: from },
+      ...to && { $lte: to}
+    }
+  }
+
+  getDefaultFilter(filter) {
+    return {
+      '$regex' : filter, '$options' : 'i' 
+    }
+  }
+
   convertedFilters(filters) {
     if(!filters) return {}
     const convertedFilters = {}
     Object.keys(filters).map(key => {
       const currentFilter = filters[key]
-      if(currentFilter.from || currentFilter.to) {
-        const { from, to } = currentFilter
-        convertedFilters[key] = {
-          ...from && { $gte: from },
-          ...to && { $lte: to}
-        }
-      } else {
-        convertedFilters[key] = {
-          '$regex' : filters[key], '$options' : 'i' 
-        } 
-      }
+      const isDateFilter = currentFilter.from || currentFilter.to
+      convertedFilters[key] = isDateFilter ? 
+        this.getDateFilter(currentFilter) : this.getDefaultFilter(currentFilter)
     })
     return convertedFilters
   }
