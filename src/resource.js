@@ -1,11 +1,11 @@
+/* eslint class-methods-use-this: 0 */
+
 const {
   BaseResource,
   BaseRecord,
   ValidationError,
 } = require('admin-bro')
 const _ = require('lodash')
-const ObjectId = require('mongodb').ObjectID;
-
 const Property = require('./property')
 
 // Error thrown by mongoose in case of validation error
@@ -66,28 +66,28 @@ class Resource extends BaseResource {
     const { from, to } = filter
     return {
       ...from && { $gte: from },
-      ...to && { $lte: to}
+      ...to && { $lte: to },
     }
   }
 
   getDefaultFilter(filter) {
     return {
-      '$regex' : filter, '$options' : 'i' 
+      '$regex': filter, '$options': 'i',
     }
   }
 
   convertedFilters(filters) {
-    if(!filters) return {}
+    if (!filters) return {}
     const convertedFilters = {}
     Object.keys(filters).map(key => {
       const currentFilter = filters[key]
       const isDateFilter = currentFilter.from || currentFilter.to
-      convertedFilters[key] = isDateFilter ? 
-        this.getDateFilter(currentFilter) : this.getDefaultFilter(currentFilter)
+      convertedFilters[key] = isDateFilter
+        ? this.getDateFilter(currentFilter) : this.getDefaultFilter(currentFilter)
     })
     return convertedFilters
   }
-  
+
   async find(filters = {}, { limit = 20, offset = 0, sort = {} }) {
     const { direction, sortBy } = sort
     const sortingParam = { [sortBy]: direction }
