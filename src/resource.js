@@ -58,14 +58,12 @@ class Resource extends BaseResource {
     return null
   }
 
-  async count() {
-    return this.MongooseModel.countDocuments()
+  async count(filters) {
+    return this.MongooseModel.find(this.convertedFilters(filters)).countDocuments()
   }
 
   convertedFilters(filters) {
-    if(!filters) {
-      return {}
-    }
+    if(!filters) return {}
     const convertedFilters = {}
     Object.keys(filters).map(key => {
       const currentFilter = filters[key]
@@ -75,19 +73,16 @@ class Resource extends BaseResource {
           ...from && { $gte: from },
           ...to && { $lte: to}
         }
-      } 
-      else if(key.includes('_id')) {
-        convertedFilters[key] = filters[key]
       } else {
         convertedFilters[key] = {
           '$regex' : filters[key], '$options' : 'i' 
         } 
       }
     })
-    console.log('converteed', convertedFilters)
     return convertedFilters
   }
-  async find(filters, { limit = 20, offset = 0, sort = {} }) {
+  
+  async find(filters = {}, { limit = 20, offset = 0, sort = {} }) {
     const { direction, sortBy } = sort
     const sortingParam = { [sortBy]: direction }
     const mongooseObjects = await this.MongooseModel
