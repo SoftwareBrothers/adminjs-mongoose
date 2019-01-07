@@ -42,8 +42,32 @@ describe('Resource', function () {
       this.resource = new Resource(User)
     })
 
-    it('returns given count', async function () {
-      expect(await this.resource.count()).to.equal(this.count)
+    it('returns given count without filters', async function () {
+      const filters = {}
+      expect(await this.resource.count(filters)).to.equal(this.count)
+    })
+
+    it('returns given count for given filters', async function () {
+      const filters = { email: 'example' }
+      const expectedResult = 0
+      expect(await this.resource.count(filters)).to.equal(expectedResult)
+    })
+  })
+
+  describe('#convertedFilters', function () {
+    beforeEach(function () {
+      this.resource = new Resource(User)
+    })
+
+    it('returns empty object if no filters', async function () {
+      const filters = {}
+      expect(await this.resource.convertedFilters(filters)).to.deep.equal({})
+    })
+
+    it('returns converted filters, if provided', async function () {
+      const filters = { email: 'example' }
+      const expectedResult = { email: { $regex: 'example', $options: 'i' } }
+      expect(await this.resource.convertedFilters(filters)).to.deep.equal(expectedResult)
     })
   })
 
