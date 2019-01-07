@@ -72,20 +72,19 @@ class Resource extends BaseResource {
 
   getDefaultFilter(filter) {
     return {
-      '$regex': filter, '$options': 'i',
+      $regex: filter, $options: 'i',
     }
   }
 
   convertedFilters(filters) {
     if (!filters) return {}
-    const convertedFilters = {}
-    Object.keys(filters).map(key => {
+    return Object.keys(filters).reduce((obj, key) => {
       const currentFilter = filters[key]
       const isDateFilter = currentFilter.from || currentFilter.to
-      convertedFilters[key] = isDateFilter
+      obj[key] = isDateFilter // eslint-disable-line no-param-reassign
         ? this.getDateFilter(currentFilter) : this.getDefaultFilter(currentFilter)
-    })
-    return convertedFilters
+      return obj
+    }, {})
   }
 
   async find(filters = {}, { limit = 20, offset = 0, sort = {} }) {
