@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint class-methods-use-this: 0 */
 
 const {
@@ -62,8 +63,7 @@ class Resource extends BaseResource {
     return this.MongooseModel.find(this.convertedFilters(filters)).countDocuments()
   }
 
-  getDateFilter(filter) {
-    const { from, to } = filter
+  getDateFilter({ from, to }) {
     return {
       ...from && { $gte: from },
       ...to && { $lte: to },
@@ -76,13 +76,15 @@ class Resource extends BaseResource {
     }
   }
 
-  convertedFilters(filters) {
-    if (!filters) return {}
+  convertedFilters(filters = {}) {
     return Object.keys(filters).reduce((obj, key) => {
       const currentFilter = filters[key]
       const isDateFilter = currentFilter.from || currentFilter.to
-      obj[key] = isDateFilter // eslint-disable-line no-param-reassign
-        ? this.getDateFilter(currentFilter) : this.getDefaultFilter(currentFilter)
+      if (isDateFilter) {
+        obj[key] = this.getDateFilter(currentFilter)
+      } else {
+        obj[key] = this.getDefaultFilter(currentFilter)
+      }
       return obj
     }, {})
   }
@@ -96,13 +98,13 @@ class Resource extends BaseResource {
       .limit(limit)
       .sort(sortingParam)
     return mongooseObjects.map(mongooseObject => new BaseRecord(
-      this.convertMongooseObject(mongooseObject), this,
+      this.stringifyId(mongooseObject), this,
     ))
   }
 
   async findOne(id) {
     const mongooseObject = await this.MongooseModel.findById(id)
-    return new BaseRecord(this.convertMongooseObject(mongooseObject), this)
+    return new BaseRecord(this.stringifyId(mongooseObject), this)
   }
 
   build(params) {
@@ -153,12 +155,12 @@ class Resource extends BaseResource {
     return new ValidationError(`${this.name()} validation failed`, errors)
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  convertMongooseObject(mongooseObj) {
+  stringifyId(mongooseObj) {
     const obj = mongooseObj.toObject()
 
     // By default the _id field is an ObjectID, one of MongoDB's BSON
-    // We have to convert this field to string for the flatten record params
+    // Id field has to be converted to string
+    // ObjectId type has additional properties, unnecessary when flattening an object
     obj._id = obj._id.toString()
     return obj
   }
