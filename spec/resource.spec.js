@@ -58,13 +58,13 @@ describe('Resource', function () {
 
     it('returns empty object if no filters', async function () {
       const filters = {}
-      expect(await this.resource.convertedFilters(filters)).to.deep.equal({})
+      expect(await Resource.convertedFilters(filters)).to.deep.equal({})
     })
 
     it('returns converted filters, if provided', async function () {
       const filters = { email: 'example' }
       const expectedResult = { email: { $regex: 'example', $options: 'i' } }
-      expect(await this.resource.convertedFilters(filters)).to.deep.equal(expectedResult)
+      expect(await Resource.convertedFilters(filters)).to.deep.equal(expectedResult)
     })
   })
 

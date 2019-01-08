@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-/* eslint class-methods-use-this: 0 */
 
 const {
   BaseResource,
@@ -61,30 +60,30 @@ class Resource extends BaseResource {
   }
 
   async count(filters) {
-    return this.MongooseModel.find(this.convertedFilters(filters)).countDocuments()
+    return this.MongooseModel.find(Resource.convertedFilters(filters)).countDocuments()
   }
 
-  getDateFilter({ from, to }) {
+  static getDateFilter({ from, to }) {
     return {
       ...from && { $gte: from },
       ...to && { $lte: to },
     }
   }
 
-  getDefaultFilter(filter) {
+  static getDefaultFilter(filter) {
     return {
       $regex: escape(filter), $options: 'i',
     }
   }
 
-  convertedFilters(filters = {}) {
+  static convertedFilters(filters = {}) {
     return Object.keys(filters).reduce((obj, key) => {
       const currentFilter = filters[key]
       const isDateFilter = currentFilter.from || currentFilter.to
       if (isDateFilter) {
-        obj[key] = this.getDateFilter(currentFilter)
+        obj[key] = Resource.getDateFilter(currentFilter)
       } else {
-        obj[key] = this.getDefaultFilter(currentFilter)
+        obj[key] = Resource.getDefaultFilter(currentFilter)
       }
       return obj
     }, {})
@@ -94,18 +93,18 @@ class Resource extends BaseResource {
     const { direction, sortBy } = sort
     const sortingParam = { [sortBy]: direction }
     const mongooseObjects = await this.MongooseModel
-      .find(this.convertedFilters(filters))
+      .find(Resource.convertedFilters(filters))
       .skip(offset)
       .limit(limit)
       .sort(sortingParam)
     return mongooseObjects.map(mongooseObject => new BaseRecord(
-      this.stringifyId(mongooseObject), this,
+      Resource.stringifyId(mongooseObject), this,
     ))
   }
 
   async findOne(id) {
     const mongooseObject = await this.MongooseModel.findById(id)
-    return new BaseRecord(this.stringifyId(mongooseObject), this)
+    return new BaseRecord(Resource.stringifyId(mongooseObject), this)
   }
 
   build(params) {
@@ -156,7 +155,7 @@ class Resource extends BaseResource {
     return new ValidationError(`${this.name()} validation failed`, errors)
   }
 
-  stringifyId(mongooseObj) {
+  static stringifyId(mongooseObj) {
     const obj = mongooseObj.toObject()
 
     // By default the _id field is an ObjectID, one of MongoDB's BSON
