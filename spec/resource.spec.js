@@ -62,9 +62,11 @@ describe('Resource', function () {
     })
 
     it('returns converted filters, if provided', async function () {
-      const filters = { email: 'example' }
-      const expectedResult = { email: { $regex: 'example', $options: 'i' } }
-      expect(await Resource.convertedFilters(filters)).to.deep.equal(expectedResult)
+      expect(await Resource.convertedFilters({ email: 'example' })).to.deep.equal({ email: { $regex: 'example', $options: 'i' } })
+    })
+
+    it('escapes special chars to be used in regex', async function () {
+      expect(await Resource.convertedFilters({ content: '+$' })).to.deep.equal({ content: { $regex: '\\+\\$', $options: 'i' } })
     })
   })
 
