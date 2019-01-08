@@ -7,6 +7,7 @@ const {
   ValidationError,
 } = require('admin-bro')
 const _ = require('lodash')
+const escape = require('escape-regexp')
 const Property = require('./property')
 
 // Error thrown by mongoose in case of validation error
@@ -72,7 +73,7 @@ class Resource extends BaseResource {
 
   getDefaultFilter(filter) {
     return {
-      $regex: filter, $options: 'i',
+      $regex: escape(filter), $options: 'i',
     }
   }
 
