@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const { BaseRecord, ValidationError } = require('admin-bro')
 
 const Resource = require('../src/resource')
+const Filters = require('../src/utils/filters')
 const Property = require('../src/property')
 const originalValidationError = require('./fixtures/mongoose-validation-error')
 
@@ -52,21 +53,17 @@ describe('Resource', function () {
   })
 
   describe('#convertedFilters', function () {
-    beforeEach(function () {
-      this.resource = new Resource(User)
-    })
-
     it('returns empty object if no filters', async function () {
       const filters = {}
-      expect(await Resource.convertedFilters(filters)).to.deep.equal({})
+      expect(await Filters.convertedFilters(filters)).to.deep.equal({})
     })
 
     it('returns converted filters, if provided', async function () {
-      expect(await Resource.convertedFilters({ email: 'example' })).to.deep.equal({ email: { $regex: 'example', $options: 'i' } })
+      expect(await Filters.convertedFilters({ email: 'example' })).to.deep.equal({ email: { $regex: 'example', $options: 'i' } })
     })
 
     it('escapes special chars to be used in regex', async function () {
-      expect(await Resource.convertedFilters({ content: '+$' })).to.deep.equal({ content: { $regex: '\\+\\$', $options: 'i' } })
+      expect(await Filters.convertedFilters({ content: '+$' })).to.deep.equal({ content: { $regex: '\\+\\$', $options: 'i' } })
     })
   })
 

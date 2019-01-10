@@ -6,8 +6,8 @@ const {
   ValidationError,
 } = require('admin-bro')
 const _ = require('lodash')
-const escape = require('escape-regexp')
 const Property = require('./property')
+const Filters = require('./utils/filters')
 
 // Error thrown by mongoose in case of validation error
 const MONGOOSE_VALIDATION_ERROR = 'ValidationError'
@@ -60,40 +60,14 @@ class Resource extends BaseResource {
   }
 
   async count(filters) {
-    return this.MongooseModel.find(Resource.convertedFilters(filters)).countDocuments()
-  }
-
-  static getDateFilter({ from, to }) {
-    return {
-      ...from && { $gte: from },
-      ...to && { $lte: to },
-    }
-  }
-
-  static getDefaultFilter(filter) {
-    return {
-      $regex: escape(filter), $options: 'i',
-    }
-  }
-
-  static convertedFilters(filters = {}) {
-    return Object.keys(filters).reduce((obj, key) => {
-      const currentFilter = filters[key]
-      const isDateFilter = currentFilter.from || currentFilter.to
-      if (isDateFilter) {
-        obj[key] = Resource.getDateFilter(currentFilter)
-      } else {
-        obj[key] = Resource.getDefaultFilter(currentFilter)
-      }
-      return obj
-    }, {})
+    return this.MongooseModel.find(Filters.convertedFilters(filters)).countDocuments()
   }
 
   async find(filters = {}, { limit = 20, offset = 0, sort = {} }) {
     const { direction, sortBy } = sort
     const sortingParam = { [sortBy]: direction }
     const mongooseObjects = await this.MongooseModel
-      .find(Resource.convertedFilters(filters))
+      .find(Filters.convertedFilters(filters))
       .skip(offset)
       .limit(limit)
       .sort(sortingParam)
