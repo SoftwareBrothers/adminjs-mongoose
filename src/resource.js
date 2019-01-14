@@ -1,11 +1,13 @@
+/* eslint-disable no-param-reassign */
+
 const {
   BaseResource,
   BaseRecord,
   ValidationError,
 } = require('admin-bro')
 const _ = require('lodash')
-
 const Property = require('./property')
+const Filters = require('./utils/filters')
 
 // Error thrown by mongoose in case of validation error
 const MONGOOSE_VALIDATION_ERROR = 'ValidationError'
@@ -57,24 +59,26 @@ class Resource extends BaseResource {
     return null
   }
 
-  async count() {
-    return this.MongooseModel.countDocuments()
+  async count(filters) {
+    return this.MongooseModel.find(Filters.convertedFilters(filters)).countDocuments()
   }
 
-  async find(query, { limit = 20, offset = 0, sort = {} }) {
+  async find(filters = {}, { limit = 20, offset = 0, sort = {} }) {
     const { direction, sortBy } = sort
     const sortingParam = { [sortBy]: direction }
     const mongooseObjects = await this.MongooseModel
-      .find({})
+      .find(Filters.convertedFilters(filters))
       .skip(offset)
       .limit(limit)
       .sort(sortingParam)
-    return mongooseObjects.map(mongooseObject => new BaseRecord(mongooseObject.toObject(), this))
+    return mongooseObjects.map(mongooseObject => new BaseRecord(
+      Resource.stringifyId(mongooseObject), this,
+    ))
   }
 
   async findOne(id) {
     const mongooseObject = await this.MongooseModel.findById(id)
-    return new BaseRecord(mongooseObject.toObject(), this)
+    return new BaseRecord(Resource.stringifyId(mongooseObject), this)
   }
 
   build(params) {
@@ -123,6 +127,16 @@ class Resource extends BaseResource {
       return memo
     }, {})
     return new ValidationError(`${this.name()} validation failed`, errors)
+  }
+
+  static stringifyId(mongooseObj) {
+    const obj = mongooseObj.toObject()
+
+    // By default the _id field is an ObjectID, one of MongoDB's BSON
+    // Id field has to be converted to string
+    // ObjectId type has additional properties, unnecessary when flattening an object
+    obj._id = obj._id.toString()
+    return obj
   }
 }
 
