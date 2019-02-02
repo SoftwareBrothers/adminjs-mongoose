@@ -14,12 +14,24 @@ const MONGOOSE_VALIDATION_ERROR = 'ValidationError'
 
 /**
  * Adapter for mongoose resource
+ * @private
  */
 class Resource extends BaseResource {
   static isAdapterFor(MoongooseModel) {
     return _.get(MoongooseModel, 'base.constructor.name') === 'Mongoose'
   }
 
+  /**
+   * @typedef {Object} MongooseModel
+   * @private
+   * @see https://mongoosejs.com/docs/models.html
+  */
+
+  /**
+   * Initialize the class with the Resource name
+   * @param {MongooseModel} MongooseModel Class which subclass mongoose.Model
+   * @memberof Resource
+   */
   constructor(MongooseModel) {
     super(MongooseModel)
     this.dbType = 'mongodb'

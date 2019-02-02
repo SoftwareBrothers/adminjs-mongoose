@@ -20,6 +20,8 @@ class Property extends BaseProperty {
    * @param  {Object}         path.options
    * @param  {Object}         path._index
    *
+   * @private
+   * 
    * @example
    *
    * const schema = new mongoose.Schema({
