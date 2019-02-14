@@ -2,7 +2,7 @@
  * @module admin-bro-mongoose
  *
  * @description
- * A mongoose database adapter for AdminBro.
+ * A Mongoose database adapter for AdminBro.
  */
 
 /**
