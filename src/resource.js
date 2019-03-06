@@ -119,7 +119,7 @@ class Resource extends BaseResource {
       }, {
         runValidators: true,
       })
-      return mongooseObject
+      return mongooseObject.toObject()
     } catch (error) {
       if (error.name === MONGOOSE_VALIDATION_ERROR) {
         throw this.createValidationError(error)

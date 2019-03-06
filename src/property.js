@@ -61,7 +61,7 @@ class Property extends BaseProperty {
     case 'Number':
       return 'number'
     case 'Date':
-      return 'date'
+      return 'datetime'
     case 'ObjectID':
       return 'string'
     case 'Decimal128':
