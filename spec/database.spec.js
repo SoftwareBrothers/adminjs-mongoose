@@ -7,7 +7,7 @@ describe('Database', function () {
     })
 
     it('return all resources', function () {
-      expect(this.resources).to.have.lengthOf(1)
+      expect(this.resources).to.have.lengthOf(2)
     })
   })
 })

@@ -5,6 +5,14 @@ global.User = mongoose.model('User', new mongoose.Schema({
   passwordHash: { type: String, required: true },
 }))
 
+global.Article = mongoose.model('Article', new mongoose.Schema({
+  content: String,
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+}))
+
 factory.define('user', User, {
   email: factory.sequence('User.email', n => `john@doe${n}.com`),
   passwordHash: 'somehashedpassword',

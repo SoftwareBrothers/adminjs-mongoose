@@ -173,6 +173,39 @@ describe('Resource', function () {
         }
       })
     })
+
+    context('id field passed as an empty string', function () {
+      beforeEach(async function () {
+        this.params = { content: '', createdBy: '' }
+        this.resource = new Resource(Article)
+      })
+
+      afterEach(async function () {
+        await Article.deleteMany({})
+      })
+
+      it('creates resource', async function () {
+        await this.resource.create(this.params)
+        const count = await this.resource.count()
+        expect(count).to.equal(1)
+      })
+    })
+
+    context('record with reference', function () {
+      beforeEach(function () {
+        this.params = { content: '', createdBy: this.userRecords[0]._id }
+        this.resource = new Resource(Article)
+      })
+
+      afterEach(async function () {
+        await Article.deleteMany({})
+      })
+
+      it('creates new resource', async function () {
+        const res = await this.resource.create(this.params)
+        expect(res.createdBy.toString()).to.equal(this.userRecords[0]._id.toString())
+      })
+    })
   })
 
   describe('#delete', function () {
@@ -185,6 +218,28 @@ describe('Resource', function () {
 
     it('removes the item from the database', async function () {
       expect(await User.countDocuments()).to.equal(this.startCount - 1)
+    })
+  })
+
+
+  describe('#populate', function () {
+    context('record with reference', function () {
+      beforeEach(async function () {
+        this.params = { content: '', createdBy: this.userRecords[1]._id }
+        this.resource = new Resource(Article)
+        const res = await this.resource.create(this.params)
+        this.record = await this.resource.findOne(res._id)
+      })
+
+      afterEach(async function () {
+        await Article.deleteMany({})
+      })
+
+      it('populates the resource', async function () {
+        const user = new Resource(User)
+        await user.populate([this.record], this.resource.property('createdBy'))
+        expect(this.record.populated.createdBy.param('email')).to.equal(this.userRecords[1].email)
+      })
     })
   })
 })

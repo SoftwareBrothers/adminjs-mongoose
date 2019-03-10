@@ -43,6 +43,10 @@ class Property extends BaseProperty {
     return this.name() !== VERSION_KEY_PROPERTY && this.name() !== ID_PROPERTY
   }
 
+  reference() {
+    return this.mongoosePath.options && this.mongoosePath.options.ref
+  }
+
   isVisible() {
     // fields containing password are hidden by default
     return this.name() !== VERSION_KEY_PROPERTY && !this.name().match('password')
@@ -63,6 +67,9 @@ class Property extends BaseProperty {
     case 'Date':
       return 'datetime'
     case 'ObjectID':
+      if (this.reference()) {
+        return 'reference'
+      }
       return 'string'
     case 'Decimal128':
       return 'float'

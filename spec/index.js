@@ -1,5 +1,5 @@
 process.env.NODE_ENV = 'test'
-process.env.MONGO_URL = process.env.MONGO_URL || 'mongodb://mongo/admin-bro-mongoose'
+process.env.TEST_MONGO_URL = process.env.TEST_MONGO_URL || 'mongodb://mongo/admin-bro-mongoose'
 
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
@@ -15,7 +15,7 @@ global.factory = factory
 require('./fixtures/factories.js')
 
 before(async function () {
-  this.mongooseConnection = await mongoose.connect(process.env.MONGO_URL)
+  this.mongooseConnection = await mongoose.connect(process.env.TEST_MONGO_URL)
 })
 
 beforeEach(function () {

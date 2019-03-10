@@ -51,7 +51,7 @@ class Resource extends BaseResource {
   }
 
   id() {
-    return this.MongooseModel.modelName.toLowerCase()
+    return this.MongooseModel.modelName
   }
 
   properties() {
@@ -88,6 +88,26 @@ class Resource extends BaseResource {
     ))
   }
 
+  async populate(baseRecords, property) {
+    const ids = baseRecords.map((baseRecord) => {
+      return baseRecord.param(property.name())
+    })
+    const records = await this.MongooseModel.find({ _id: ids })
+    const recordsHash = records.reduce((memo, record) => {
+      memo[record._id] = record
+      return memo
+    }, {})
+    baseRecords.forEach((baseRecord) => {
+      const id = baseRecord.param(property.name())
+      if (recordsHash[id]) {
+        const referenceRecord = new BaseRecord(
+          Resource.stringifyId(recordsHash[id]), this,
+        )
+        baseRecord.populated[property.name()] = referenceRecord
+      }
+    })
+  }
+
   async findOne(id) {
     const mongooseObject = await this.MongooseModel.findById(id)
     return new BaseRecord(Resource.stringifyId(mongooseObject), this)
@@ -98,7 +118,8 @@ class Resource extends BaseResource {
   }
 
   async create(params) {
-    let mongooseDocument = new this.MongooseModel(params)
+    const parsedParams = this.parseParams(params)
+    let mongooseDocument = new this.MongooseModel(parsedParams)
     try {
       mongooseDocument = await mongooseDocument.save()
     } catch (error) {
@@ -111,11 +132,12 @@ class Resource extends BaseResource {
   }
 
   async update(id, params) {
+    const parsedParams = this.parseParams(params)
     try {
       const mongooseObject = await this.MongooseModel.findOneAndUpdate({
         _id: id,
       }, {
-        $set: params,
+        $set: parsedParams,
       }, {
         runValidators: true,
       })
@@ -142,13 +164,34 @@ class Resource extends BaseResource {
   }
 
   static stringifyId(mongooseObj) {
-    const obj = mongooseObj.toObject()
+    // By default Id field is an ObjectID and when we change entire mongoose model to
+    // raw object it changes _id field not to a string but to an object.
+    // stringify/parse is a path found here: https://github.com/Automattic/mongoose/issues/2790
+    // @todo We can somehow speed this up
+    const strinigified = JSON.stringify(mongooseObj)
+    return JSON.parse(strinigified)
+  }
 
-    // By default the _id field is an ObjectID, one of MongoDB's BSON
-    // Id field has to be converted to string
-    // ObjectId type has additional properties, unnecessary when flattening an object
-    obj._id = obj._id.toString()
-    return obj
+  /**
+   * When user passes empty string as the value of property which is an ObjectID - mongo
+   * will throw an error. This method changes all empty strings to `null`s for the
+   * ObjectID properties.
+   *
+   * @param   {Object}  params  received from AdminBro form
+   *
+   * @return  {Object}          converted params
+   */
+  parseParams(params) {
+    const parasedParams = { ...params }
+    this.properties()
+      .filter(p => p.mongoosePath.instance === 'ObjectID')
+      .forEach((property) => {
+        const value = parasedParams[property.name()]
+        if (value === '') {
+          parasedParams[property.name()] = null
+        }
+      })
+    return parasedParams
   }
 }
 
