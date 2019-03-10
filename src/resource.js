@@ -89,9 +89,9 @@ class Resource extends BaseResource {
   }
 
   async populate(baseRecords, property) {
-    const ids = baseRecords.map((baseRecord) => {
-      return baseRecord.param(property.name())
-    })
+    const ids = baseRecords.map(baseRecord => (
+      baseRecord.param(property.name())
+    ))
     const records = await this.MongooseModel.find({ _id: ids })
     const recordsHash = records.reduce((memo, record) => {
       memo[record._id] = record
