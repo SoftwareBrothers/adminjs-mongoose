@@ -7,7 +7,7 @@ const {
 } = require('admin-bro')
 const _ = require('lodash')
 const Property = require('./property')
-const Filters = require('./utils/filters')
+const convertFilter = require('./utils/convert-filter')
 
 // Error thrown by mongoose in case of validation error
 const MONGOOSE_VALIDATION_ERROR = 'ValidationError'
@@ -72,14 +72,14 @@ class Resource extends BaseResource {
   }
 
   async count(filters) {
-    return this.MongooseModel.find(Filters.convertedFilters(filters)).countDocuments()
+    return this.MongooseModel.find(convertFilter(filters)).countDocuments()
   }
 
   async find(filters = {}, { limit = 20, offset = 0, sort = {} }) {
     const { direction, sortBy } = sort
     const sortingParam = { [sortBy]: direction }
     const mongooseObjects = await this.MongooseModel
-      .find(Filters.convertedFilters(filters))
+      .find(convertFilter(filters))
       .skip(offset)
       .limit(limit)
       .sort(sortingParam)

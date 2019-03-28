@@ -70,7 +70,7 @@ class Property extends BaseProperty {
       if (this.reference()) {
         return 'reference'
       }
-      return 'string'
+      return 'id'
     case 'Decimal128':
       return 'float'
     default:
