@@ -6,8 +6,11 @@ const mongoose = require('mongoose')
  *
  * @param {Filter} filter
  */
-const convertFilter = filter => (
-  filter.reduce((memo, filterProperty) => {
+const convertFilter = (filter) => {
+  if (!filter) {
+    return {}
+  }
+  return filter.reduce((memo, filterProperty) => {
     const { property, value } = filterProperty
     switch (property.type()) {
     case 'string':
@@ -43,6 +46,6 @@ const convertFilter = filter => (
       ...memo,
     }
   }, {})
-)
+}
 
 module.exports = convertFilter
