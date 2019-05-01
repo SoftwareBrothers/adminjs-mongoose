@@ -56,6 +56,12 @@ class Property extends BaseProperty {
     return this.name() === ID_PROPERTY
   }
 
+  availableValues() {
+    return this.mongoosePath.enumValues && this.mongoosePath.enumValues.length
+      ? this.mongoosePath.enumValues
+      : null
+  }
+
   type() {
     switch (this.mongoosePath.instance) {
     case 'String':

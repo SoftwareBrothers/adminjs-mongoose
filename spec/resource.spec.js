@@ -91,7 +91,7 @@ describe('Resource', function () {
       expect(this.ret).to.have.lengthOf(4)
     })
 
-    it('returns elements of Property', async function () {
+    it('returns instances of Property class', async function () {
       expect(this.ret[0]).to.be.an.instanceof(Property)
     })
 

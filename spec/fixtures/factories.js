@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 global.User = mongoose.model('User', new mongoose.Schema({
   email: { type: String, required: true },
   passwordHash: { type: String, required: true },
+  genre: { type: String, enum: ['male', 'female'] },
 }))
 
 global.Article = mongoose.model('Article', new mongoose.Schema({
