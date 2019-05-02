@@ -87,8 +87,8 @@ describe('Resource', function () {
     })
 
     it('returns correct amount of properties', function () {
-      // 4 because of implicite _id and __v properties
-      expect(this.ret).to.have.lengthOf(4)
+      // 5 because of implicite _id and __v properties
+      expect(this.ret).to.have.lengthOf(5)
     })
 
     it('returns instances of Property class', async function () {
