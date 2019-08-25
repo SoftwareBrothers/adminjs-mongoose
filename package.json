@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/SoftwareBrothers/admin-bro-mongoose#readme",
   "peerDependencies": {
-    "admin-bro": ">=0.7.0",
+    "admin-bro": ">=1.1.0",
     "mongoose": ">=5"
   },
   "dependencies": {
