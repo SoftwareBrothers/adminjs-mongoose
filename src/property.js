@@ -35,6 +35,31 @@ class Property extends BaseProperty {
     this.mongoosePath = path
   }
 
+  instanceToType(mongooseInstance) {
+    switch (mongooseInstance) {
+    case 'String':
+      return 'string'
+    case 'Boolean':
+      return 'boolean'
+    case 'Number':
+      return 'number'
+    case 'Date':
+      return 'datetime'
+    case 'Embedded':
+      return 'mixed'
+    case 'ObjectID':
+      if (this.reference()) {
+        return 'reference'
+      }
+      return 'id'
+    case 'Decimal128':
+      return 'float'
+    default:
+      console.warn(`Unhandled type: ${this.mongoosePath.instance}`)
+      return 'string'
+    }
+  }
+
   name() {
     return this.mongoosePath.path
   }
@@ -44,6 +69,9 @@ class Property extends BaseProperty {
   }
 
   reference() {
+    if (this.isArray()) {
+      return this.mongoosePath.caster.options && this.mongoosePath.caster.options.ref
+    }
     return this.mongoosePath.options && this.mongoosePath.options.ref
   }
 
@@ -62,27 +90,33 @@ class Property extends BaseProperty {
       : null
   }
 
-  type() {
-    switch (this.mongoosePath.instance) {
-    case 'String':
-      return 'string'
-    case 'Boolean':
-      return 'boolean'
-    case 'Number':
-      return 'number'
-    case 'Date':
-      return 'datetime'
-    case 'ObjectID':
-      if (this.reference()) {
-        return 'reference'
-      }
-      return 'id'
-    case 'Decimal128':
-      return 'float'
-    default:
-      console.warn(`Unhandled type: ${this.mongoosePath.instance}`)
-      return 'string'
+  isArray() {
+    return this.mongoosePath.instance === 'Array'
+  }
+
+  subProperties() {
+    if (this.type() === 'mixed') {
+      const subPaths = Object.values(this.mongoosePath.caster.schema.paths)
+      return subPaths.map(p => new Property(p))
     }
+    return []
+  }
+
+  type() {
+    if (this.isArray()) {
+      let { instance } = this.mongoosePath.caster
+      // For array of embeded schemas mongoose returns null for caster.instance
+      // That is why we have to check if caster has a schema
+      if (!instance && this.mongoosePath.caster.schema) {
+        instance = 'Embedded'
+      }
+      return this.instanceToType(instance)
+    }
+    return this.instanceToType(this.mongoosePath.instance)
+  }
+
+  isSortable() {
+    return this.type() !== 'mixed' && !this.isArray()
   }
 }
 

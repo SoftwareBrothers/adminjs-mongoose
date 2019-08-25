@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
  * Changes AdminBro's {@link Filter} to an object acceptible by a mongoose query.
  *
  * @param {Filter} filter
+ * @private
  */
 const convertFilter = (filter) => {
   if (!filter) {
