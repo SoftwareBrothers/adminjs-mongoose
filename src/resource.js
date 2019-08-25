@@ -6,6 +6,7 @@ const {
   ValidationError,
 } = require('admin-bro')
 const _ = require('lodash')
+const { unflatten } = require('flat')
 const Property = require('./property')
 const convertFilter = require('./utils/convert-filter')
 
@@ -88,22 +89,38 @@ class Resource extends BaseResource {
     ))
   }
 
+  fillPopulatedData(baseRecord, path, recordsHash) {
+    const id = baseRecord.param(path)
+    if (recordsHash[id]) {
+      const referenceRecord = new BaseRecord(
+        Resource.stringifyId(recordsHash[id]), this,
+      )
+      baseRecord.populated[path] = referenceRecord
+    }
+  }
+
   async populate(baseRecords, property) {
-    const ids = baseRecords.map(baseRecord => (
-      baseRecord.param(property.name())
-    ))
+    const ids = baseRecords.reduce((memo, baseRecord) => {
+      if (property.isArray()) {
+        const array = baseRecord.param(property.name()) || []
+        return [...memo, ...array]
+      }
+      return [...memo, baseRecord.param(property.name())]
+    }, [])
     const records = await this.MongooseModel.find({ _id: ids })
     const recordsHash = records.reduce((memo, record) => {
       memo[record._id] = record
       return memo
     }, {})
+
     baseRecords.forEach((baseRecord) => {
-      const id = baseRecord.param(property.name())
-      if (recordsHash[id]) {
-        const referenceRecord = new BaseRecord(
-          Resource.stringifyId(recordsHash[id]), this,
-        )
-        baseRecord.populated[property.name()] = referenceRecord
+      if (property.isArray()) {
+        const filtered = baseRecord.namespaceParams(property.name()) || {}
+        for (const path of Object.keys(filtered)) {
+          this.fillPopulatedData(baseRecord, path, recordsHash)
+        }
+      } else {
+        this.fillPopulatedData(baseRecord, property.name(), recordsHash)
       }
     })
   }
@@ -137,7 +154,7 @@ class Resource extends BaseResource {
       const mongooseObject = await this.MongooseModel.findOneAndUpdate({
         _id: id,
       }, {
-        $set: parsedParams,
+        $set: unflatten(parsedParams),
       }, {
         runValidators: true,
       })

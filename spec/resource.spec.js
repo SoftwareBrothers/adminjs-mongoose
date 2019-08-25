@@ -87,8 +87,8 @@ describe('Resource', function () {
     })
 
     it('returns correct amount of properties', function () {
-      // 5 because of implicite _id and __v properties
-      expect(this.ret).to.have.lengthOf(5)
+      // 8 because of implicite _id and __v properties
+      expect(this.ret).to.have.lengthOf(8)
     })
 
     it('returns instances of Property class', async function () {
@@ -225,6 +225,30 @@ describe('Resource', function () {
         const user = new Resource(User)
         await user.populate([this.record], this.resource.property('createdBy'))
         expect(this.record.populated.createdBy.param('email')).to.equal(this.userRecords[1].email)
+      })
+    })
+
+    context('record with array of references', function () {
+      beforeEach(async function () {
+        this.params = {
+          content: '',
+          owners: [this.userRecords[2]._id, this.userRecords[3]._id],
+        }
+        this.resource = new Resource(Article)
+        const res = await this.resource.create(this.params)
+        this.record = await this.resource.findOne(res._id)
+      })
+
+      afterEach(async function () {
+        await Article.deleteMany({})
+      })
+
+      it('populates all the nested fields in a resource', async function () {
+        const user = new Resource(User)
+        await user.populate([this.record], this.resource.property('owners'))
+        expect(Object.keys(this.record.populated)).to.have.lengthOf(2)
+        expect(this.record.populated['owners.0'].param('email')).to.equal(this.userRecords[2].email)
+        expect(this.record.populated['owners.1'].param('email')).to.equal(this.userRecords[3].email)
       })
     })
   })
