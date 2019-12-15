@@ -163,7 +163,6 @@ class Resource extends BaseResource {
       })
       return mongooseObject.toObject()
     } catch (error) {
-      console.log(JSON.stringify(error))
       if (error.name === MONGOOSE_VALIDATION_ERROR) {
         throw this.createValidationError(error)
       }
