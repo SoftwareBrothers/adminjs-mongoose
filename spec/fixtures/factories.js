@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const SubType = new mongoose.Schema({
   name: String,
   surname: String,
+  age: Number,
 })
 
 global.User = mongoose.model('User', new mongoose.Schema({

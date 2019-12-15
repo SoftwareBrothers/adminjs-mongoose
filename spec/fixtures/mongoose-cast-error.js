@@ -1,0 +1,24 @@
+module.exports = {
+  stringValue: '"asdasd"',
+  kind: 'Number',
+  value: 'asdasd',
+  path: 'age',
+  reason: {
+    stringValue: '"asdasd"',
+    kind: 'number',
+    value: 'asdasd',
+    path: 'age',
+    reason: {
+      generatedMessage: true,
+      name: 'AssertionError [ERR_ASSERTION]',
+      code: 'ERR_ASSERTION',
+      actual: false,
+      expected: true,
+      operator: '==',
+    },
+    message: 'Cast to number failed for value "asdasd" at path "age"',
+    name: 'CastError',
+  },
+  message: 'Cast to Number failed for value "asdasd" at path "age"',
+  name: 'CastError',
+}

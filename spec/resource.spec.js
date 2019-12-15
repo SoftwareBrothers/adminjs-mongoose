@@ -4,6 +4,9 @@ const { BaseRecord, ValidationError, Filter } = require('admin-bro')
 const Resource = require('../src/resource')
 const Property = require('../src/property')
 const originalValidationError = require('./fixtures/mongoose-validation-error')
+const nestedValidationError = require('./fixtures/mongoose-nested-validation-error')
+const castError = require('./fixtures/mongoose-cast-error')
+const castArrayError = require('./fixtures/mongoose-cast-array-error')
 
 describe('Resource', function () {
   before(async function () {
@@ -15,18 +18,71 @@ describe('Resource', function () {
     await User.deleteMany({})
   })
 
-  describe('#CreateValidationError', function () {
-    beforeEach(function () {
-      const resource = new Resource(User)
-      this.error = resource.createValidationError(originalValidationError)
+  describe('#createValidationError', function () {
+    context('regular error', function () {
+      beforeEach(function () {
+        const resource = new Resource(User)
+        this.error = resource.createValidationError(originalValidationError)
+      })
+
+      it('has errors', function () {
+        expect(Object.keys(this.error.propertyErrors)).to.have.lengthOf(2)
+      })
+
+      it('has error for email', function () {
+        expect(this.error.propertyErrors.email.type).to.equal('required')
+      })
     })
 
-    it('has errors', function () {
-      expect(Object.keys(this.error.errors)).to.have.lengthOf(2)
+    context('error for nested field', function () {
+      beforeEach(function () {
+        const resource = new Resource(User)
+        this.error = resource.createValidationError(nestedValidationError)
+      })
+
+      it('2 errors, one for root field and one for an actual nested field', function () {
+        expect(Object.keys(this.error.propertyErrors)).to.have.lengthOf(2)
+      })
+
+      it('has error for nested "parent.age" field', function () {
+        expect(this.error.propertyErrors['parent.age'].type).to.equal('Number')
+      })
+
+      it('has error for "parent" field', function () {
+        expect(this.error.propertyErrors.parent.type).to.equal('ValidationError')
+      })
+    })
+  })
+
+  describe('createCastError', function () {
+    context('throwin cast error on update after one key has error', function () {
+      const errorKey = 'parent.age' // because "castError" has been taken for this particular key
+
+      beforeEach(function () {
+        const resource = new Resource(User)
+        this.error = resource.createCastError(castError, {
+          otherKeyWithTheSameErrorValue: castError.value,
+          [errorKey]: castError.value,
+          otherKey: 'othervalue',
+        })
+      })
+
+      it('has error for nested "parent.age" (errorKey) field', function () {
+        expect(this.error.propertyErrors[errorKey].type).to.equal('Number')
+      })
     })
 
-    it('has error for email', function () {
-      expect(this.error.errors.email.kind).to.equal('required')
+    context('throwing cast error on update when one array field has error', function () {
+      beforeEach(function () {
+        const resource = new Resource(User)
+        this.error = resource.createCastError(castArrayError, {
+          'authors.1': castArrayError.value,
+        })
+      })
+
+      it('throws an error for root field', function () {
+        expect(this.error.propertyErrors['authors.1'].type).to.equal('ObjectId')
+      })
     })
   })
 
@@ -50,6 +106,20 @@ describe('Resource', function () {
       expect(await this.resource.count(new Filter({
         email: 'some-not-existing-email',
       }, this.resource))).to.equal(0)
+    })
+  })
+
+  describe('#parseParams', function () {
+    beforeEach(function () {
+      this.resource = new Resource(User)
+    })
+
+    it('converts empty strings to nulls for ObjectIDs', function () {
+      expect(this.resource.parseParams({ _id: '' })).to.have.property('_id', null)
+    })
+
+    it('converts empty strings to [] for arrays', function () {
+      expect(this.resource.parseParams({ family: '' })).to.deep.have.property('family', [])
     })
   })
 
@@ -145,7 +215,7 @@ describe('Resource', function () {
       })
     })
 
-    context('record with errors', function () {
+    context('record with validation errors', function () {
       beforeEach(async function () {
         this.params = { email: '', passwordHash: '' }
         this.resource = new Resource(User)
@@ -156,6 +226,29 @@ describe('Resource', function () {
           await this.resource.create(this.params)
         } catch (error) {
           expect(error).to.be.an.instanceOf(ValidationError)
+        }
+      })
+    })
+
+    context('record with cast errors in nested schema', function () {
+      beforeEach(async function () {
+        this.params = {
+          email: 'a@a.pl',
+          passwordHash: 'asdasdasd',
+          parent: {
+            age: 'not a number',
+          },
+        }
+        this.resource = new Resource(User)
+      })
+
+      it('throws validation error', async function () {
+        try {
+          await this.resource.create(this.params)
+        } catch (error) {
+          expect(error).to.be.an.instanceOf(ValidationError)
+          expect(error.propertyErrors['parent.age'].type).to.equal('Number')
+          expect(error.propertyErrors.parent.type).to.equal('ValidationError')
         }
       })
     })

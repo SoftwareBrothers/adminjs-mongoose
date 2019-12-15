@@ -1,5 +1,5 @@
 process.env.NODE_ENV = 'test'
-process.env.TEST_MONGO_URL = process.env.TEST_MONGO_URL || 'mongodb://mongo/admin-bro-mongoose'
+process.env.TEST_MONGO_URL = process.env.TEST_MONGO_URL || 'mongodb://localhost/admin-bro-mongoose'
 
 const chai = require('chai')
 const sinonChai = require('sinon-chai')

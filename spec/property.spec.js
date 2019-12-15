@@ -68,13 +68,13 @@ describe('Property', function () {
     it('returns an array of all subproperties when nested schema is given', function () {
       const property = new Property(User.schema.paths.parent)
       const subProperties = property.subProperties()
-      expect(subProperties).to.have.lengthOf(3)
+      expect(subProperties).to.have.lengthOf(4)
     })
 
     it('returns an array of all subproperties when array of nested schema is given', function () {
       const property = new Property(User.schema.paths.family)
       const subProperties = property.subProperties()
-      expect(subProperties).to.have.lengthOf(3)
+      expect(subProperties).to.have.lengthOf(4)
     })
   })
 })
