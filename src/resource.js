@@ -59,18 +59,15 @@ class Resource extends BaseResource {
   }
 
   properties() {
-    const properties = []
-    // eslint-disable-next-line no-unused-vars
-    for (const [name, path] of Object.entries(this.MongooseModel.schema.paths)) {
-      const prop = new Property(path)
-      properties.push(prop)
-    }
-    return properties
+    return Object.entries(this.MongooseModel.schema.paths).map(([, path], position) => (
+      new Property(path, position)
+    ))
   }
 
   property(name) {
-    if (this.MongooseModel.schema.paths[name]) {
-      return new Property(this.MongooseModel.schema.paths[name])
+    const position = this.properties().findIndex(property => property.path() === name)
+    if (position >= 0) {
+      return this.properties()[position]
     }
     return null
   }

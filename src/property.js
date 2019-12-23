@@ -30,8 +30,9 @@ class Property extends BaseProperty {
    *
    * property = new Property(schema.paths.email))
    */
-  constructor(path) {
+  constructor(path, position = 0) {
     super({ path: path.path })
+    this._position = position
     this.mongoosePath = path
   }
 
@@ -100,6 +101,10 @@ class Property extends BaseProperty {
       return subPaths.map(p => new Property(p))
     }
     return []
+  }
+
+  position() {
+    return this._position
   }
 
   type() {

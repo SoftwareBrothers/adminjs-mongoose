@@ -153,16 +153,20 @@ describe('Resource', function () {
   describe('#properties', function () {
     beforeEach(function () {
       this.resource = new Resource(User)
-      this.ret = this.resource.properties()
+      this.returnedProperties = this.resource.properties()
     })
 
     it('returns correct amount of properties', function () {
       // 8 because of implicite _id and __v properties
-      expect(this.ret).to.have.lengthOf(8)
+      expect(this.returnedProperties).to.have.lengthOf(8)
+    })
+
+    it('sets the position of properties', function () {
+      expect(this.returnedProperties.map(p => p.position())).to.deep.equal([0, 1, 2, 3, 4, 5, 6, 7])
     })
 
     it('returns instances of Property class', async function () {
-      expect(this.ret[0]).to.be.an.instanceof(Property)
+      expect(this.returnedProperties[0]).to.be.an.instanceof(Property)
     })
 
     context('Nested properties', function () {
@@ -174,11 +178,11 @@ describe('Resource', function () {
           },
         }))
         this.resource = new Resource(Nested)
-        this.ret = this.resource.properties()
+        this.returnedProperties = this.resource.properties()
       })
 
       it('returns all fields', function () {
-        expect(this.ret).to.have.lengthOf(4)
+        expect(this.returnedProperties).to.have.lengthOf(4)
       })
     })
   })
@@ -186,15 +190,22 @@ describe('Resource', function () {
   describe('#property', function () {
     beforeEach(function () {
       this.resource = new Resource(User)
-      this.ret = this.resource.property('email')
+      this.returnedProperty = this.resource.property('email')
     })
 
     it('returns selected property for an email', function () {
-      expect(this.ret.name()).to.equal('email')
+      expect(this.returnedProperty.name()).to.equal('email')
     })
 
     it('returns instance of Property class', function () {
-      expect(this.ret).to.be.an.instanceof(Property)
+      expect(this.returnedProperty).to.be.an.instanceof(Property)
+    })
+  })
+
+  describe('#position', function () {
+    it('returns position of a parent field', function () {
+      const property = new Resource(User).property('parent')
+      expect(property.position()).to.equal(4)
     })
   })
 
@@ -299,7 +310,6 @@ describe('Resource', function () {
       expect(await User.countDocuments()).to.equal(this.startCount - 1)
     })
   })
-
 
   describe('#populate', function () {
     context('record with reference', function () {
