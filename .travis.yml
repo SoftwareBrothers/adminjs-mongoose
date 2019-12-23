@@ -9,7 +9,7 @@ script:
 - yarn run lint
 - yarn test
 deploy:
-  # tag: beta
+  tag: beta
   provider: npm
   email: wojciech.g.krysiak@gmail.com
   api_key:
