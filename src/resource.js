@@ -130,6 +130,13 @@ class Resource extends BaseResource {
     return new BaseRecord(Resource.stringifyId(mongooseObject), this)
   }
 
+  async findMany(ids) {
+    const mongooseObjects = await this.MongooseModel.find({ _id: ids })
+    return mongooseObjects.map(mongooseObject => (
+      new BaseRecord(Resource.stringifyId(mongooseObject), this)
+    ))
+  }
+
   build(params) {
     return new BaseRecord(params, this)
   }
