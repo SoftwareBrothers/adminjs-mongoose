@@ -11,6 +11,7 @@ Changelog maintained after version 0.3.1
 ### Added
 
 - add position field
+- add findMany to resource
 
 ## [0.3.1] - 2019-12-17
 
