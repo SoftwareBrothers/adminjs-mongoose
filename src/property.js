@@ -55,7 +55,10 @@ class Property extends BaseProperty {
       return 'id'
     case 'Decimal128':
       return 'float'
+    case 'Array':
+      return 'string'
     default:
+      // eslint-disable-next-line no-console
       console.warn(`Unhandled type: ${this.mongoosePath.instance}`)
       return 'string'
     }
@@ -114,6 +117,9 @@ class Property extends BaseProperty {
       // That is why we have to check if caster has a schema
       if (!instance && this.mongoosePath.caster.schema) {
         instance = 'Embedded'
+      }
+      if (instance === 'Mixed') {
+        instance = 'Array'
       }
       return this.instanceToType(instance)
     }
