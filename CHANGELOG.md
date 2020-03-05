@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Changelog maintained after version 0.3.1
 
+## [0.4.0] - 04.03.2020
+
+### Changed
+
+* remove obsolete console.warn 
+
 ## [0.4.0] - 01.01.2020
 
 ### Added
