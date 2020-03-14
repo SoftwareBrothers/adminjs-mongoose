@@ -6,7 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Changelog maintained after version 0.3.1
 
-## [0.4.0] - 04.03.2020
+
+## [0.4.2] - 14.03.2020
+
+### Changed
+
+* Resource.build changes IDs from BSON object to strings by default
+
+## [0.4.1] - 04.03.2020
 
 ### Changed
 

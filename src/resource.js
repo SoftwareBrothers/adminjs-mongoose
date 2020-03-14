@@ -138,7 +138,7 @@ class Resource extends BaseResource {
   }
 
   build(params) {
-    return new BaseRecord(params, this)
+    return new BaseRecord(Resource.stringifyId(params), this)
   }
 
   async create(params) {
