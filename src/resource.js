@@ -163,6 +163,7 @@ class Resource extends BaseResource {
       }, {
         $set: unflatten(parsedParams),
       }, {
+        new: true,
         runValidators: true,
       })
       return mongooseObject.toObject()
