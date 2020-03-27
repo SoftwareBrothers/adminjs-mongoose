@@ -264,7 +264,7 @@ class Resource extends BaseResource {
           parasedParams[fullPath] = []
         } else if (schema && schema.paths) { // we only want arrays of objects (with sub-paths)
           const subProperties = Object.values(schema.paths)
-          // eslint-disable-next-line no-plusplus
+          // eslint-disable-next-line no-plusplus, no-constant-condition
           for (let i = 0; true; i++) { // loop over every item
             const newPrefix = `${fullPath}.${i}`
             if (parasedParams[newPrefix] === '') {
@@ -283,8 +283,12 @@ class Resource extends BaseResource {
 
       // this handles all properties of an object
       if (instance === 'Embedded') {
-        const subProperties = Object.values(schema.paths)
-        subProperties.forEach(handleProperty(fullPath))
+        if (parasedParams[fullPath] === '') {
+          parasedParams[fullPath] = {}
+        } else {
+          const subProperties = Object.values(schema.paths)
+          subProperties.forEach(handleProperty(fullPath))
+        }
       }
     }
 

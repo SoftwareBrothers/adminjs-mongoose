@@ -1,9 +1,15 @@
 const mongoose = require('mongoose')
 
+const NestedObject = new mongoose.Schema({
+  someProperty: Number,
+})
+
 const SubType = new mongoose.Schema({
   name: String,
   surname: String,
   age: Number,
+  nestedArray: [NestedObject],
+  nestedObject: NestedObject,
 })
 
 global.User = mongoose.model('User', new mongoose.Schema({
