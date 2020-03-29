@@ -208,19 +208,61 @@ class Resource extends BaseResource {
    */
   parseParams(params) {
     const parasedParams = { ...params }
-    this.properties().forEach((property) => {
-      const value = parasedParams[property.name()]
-      if (property.mongoosePath.instance === 'ObjectID') {
+
+    // this function handles ObjectIDs and Arrays recursively
+    const handleProperty = (prefix = '') => (property) => {
+      const {
+        path,
+        schema,
+        instance,
+      } = property
+      // mongoose doesn't supply us with the same path as we're using in our data
+      // so we need to improvise
+      const fullPath = [prefix, path].filter(Boolean).join('.')
+      const value = parasedParams[fullPath]
+
+      // this handles missing ObjectIDs
+      if (instance === 'ObjectID') {
         if (value === '') {
-          parasedParams[property.name()] = null
+          parasedParams[fullPath] = null
         }
       }
-      if (property.mongoosePath.instance === 'Array') {
+
+      // this handles empty Arrays or recurses into all properties of a filled Array
+      if (instance === 'Array') {
         if (value === '') {
-          parasedParams[property.name()] = []
+          parasedParams[fullPath] = []
+        } else if (schema && schema.paths) { // we only want arrays of objects (with sub-paths)
+          const subProperties = Object.values(schema.paths)
+          // eslint-disable-next-line no-plusplus, no-constant-condition
+          for (let i = 0; true; i++) { // loop over every item
+            const newPrefix = `${fullPath}.${i}`
+            if (parasedParams[newPrefix] === '') {
+              // this means we have an empty object here
+              parasedParams[newPrefix] = {}
+            } else if (!Object.keys(parasedParams).some(key => key.startsWith(newPrefix))) {
+              // we're past the last index of this array
+              break
+            } else {
+              // recurse into the object
+              subProperties.forEach(handleProperty(newPrefix))
+            }
+          }
         }
       }
-    })
+
+      // this handles all properties of an object
+      if (instance === 'Embedded') {
+        if (parasedParams[fullPath] === '') {
+          parasedParams[fullPath] = {}
+        } else {
+          const subProperties = Object.values(schema.paths)
+          subProperties.forEach(handleProperty(fullPath))
+        }
+      }
+    }
+
+    this.properties().forEach(({ mongoosePath }) => handleProperty()(mongoosePath))
 
     return parasedParams
   }

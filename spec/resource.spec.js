@@ -212,7 +212,32 @@ describe('Resource', function () {
   describe('#create', function () {
     context('correct record', function () {
       beforeEach(async function () {
-        this.params = { email: 'john@doe.com', passwordHash: 'somesecretpasswordhash' }
+        this.params = {
+          email: 'john@doe.com',
+          passwordHash: 'somesecretpasswordhash',
+          'genre.type': 'some type',
+          'genre.enum': 'male',
+          'arrayed.0': 'first',
+          'arrayed.1': 'second',
+          'parent.name': 'name',
+          'parent.surname': 'surname',
+          'parent.age': 12,
+          'parent.nestedArray.0.someProperty': 12,
+          'parent.nestedArray.1.someProperty': 12,
+          'parent.nestedObject.someProperty': 12,
+          'family.0.name': 'some string',
+          'family.0.surname': 'some string',
+          'family.0.age': 13,
+          'family.0.nestedArray.0.someProperty': 12,
+          'family.0.nestedArray.1.someProperty': 12,
+          'family.0.nestedObject.someProperty': 12,
+          'family.1.name': 'some string',
+          'family.1.surname': 'some string',
+          'family.1.age': 14,
+          'family.1.nestedArray.0.someProperty': 12,
+          'family.1.nestedArray.1.someProperty': 12,
+          'family.1.nestedObject.someProperty': 12,
+        }
         this.resource = new Resource(User)
         this.record = await this.resource.create(this.params)
       })
@@ -246,9 +271,7 @@ describe('Resource', function () {
         this.params = {
           email: 'a@a.pl',
           passwordHash: 'asdasdasd',
-          parent: {
-            age: 'not a number',
-          },
+          'parent.age': 'not a number',
         }
         this.resource = new Resource(User)
       })
@@ -256,6 +279,7 @@ describe('Resource', function () {
       it('throws validation error', async function () {
         try {
           await this.resource.create(this.params)
+          expect(true).to.equal(false)
         } catch (error) {
           expect(error).to.be.an.instanceOf(ValidationError)
           expect(error.propertyErrors['parent.age'].type).to.equal('Number')
@@ -266,7 +290,7 @@ describe('Resource', function () {
 
     context('id field passed as an empty string', function () {
       beforeEach(async function () {
-        this.params = { content: '', createdBy: '' }
+        this.params = { content: 'some content', createdBy: '' }
         this.resource = new Resource(Article)
       })
 
@@ -294,6 +318,29 @@ describe('Resource', function () {
       it('creates new resource', async function () {
         const res = await this.resource.create(this.params)
         expect(res.createdBy.toString()).to.equal(this.userRecords[0]._id.toString())
+      })
+    })
+
+    context('record with nested array', function () {
+      beforeEach(async function () {
+        this.params = {
+          email: 'john@doe.com',
+          passwordHash: 'somesecretpasswordhash',
+          'parent.name': 'name',
+          'parent.nestedArray': '',
+          'parent.nestedObject': '',
+          'family.0.name': 'some string',
+          'family.0.nestedArray.0': '',
+          'family.1': '',
+        }
+      })
+
+      it('creates new object', async function () {
+        this.resource = new Resource(User)
+        const countBefore = await this.resource.count()
+        this.record = await this.resource.create(this.params)
+        const countAfter = await this.resource.count()
+        expect(countAfter - countBefore).to.equal(1)
       })
     })
   })
