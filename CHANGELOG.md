@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Changelog maintained after version 0.3.1
 
+## [0.5.0] - unreleased
+
+### Changed
+
+* change ValidationError interface that it is aligned with AdminBro v2.2
+* parse params works recursively
+
+### Fixed
+
+* fix error where old params were returned after updating the record
 
 ## [0.4.2] - 14.03.2020
 
