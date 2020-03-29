@@ -33,3 +33,5 @@ after(function () {
 require('./database.spec.js')
 require('./resource.spec.js')
 require('./property.spec.js')
+require('./utils/create-cast-error.spec.js')
+require('./utils/create-validation-error.spec.js')

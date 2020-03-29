@@ -3,10 +3,6 @@ const { BaseRecord, ValidationError, Filter } = require('admin-bro')
 
 const Resource = require('../src/resource')
 const Property = require('../src/property')
-const originalValidationError = require('./fixtures/mongoose-validation-error')
-const nestedValidationError = require('./fixtures/mongoose-nested-validation-error')
-const castError = require('./fixtures/mongoose-cast-error')
-const castArrayError = require('./fixtures/mongoose-cast-array-error')
 
 describe('Resource', function () {
   before(async function () {
@@ -16,74 +12,6 @@ describe('Resource', function () {
 
   after(async function () {
     await User.deleteMany({})
-  })
-
-  describe('#createValidationError', function () {
-    context('regular error', function () {
-      beforeEach(function () {
-        const resource = new Resource(User)
-        this.error = resource.createValidationError(originalValidationError)
-      })
-
-      it('has errors', function () {
-        expect(Object.keys(this.error.propertyErrors)).to.have.lengthOf(2)
-      })
-
-      it('has error for email', function () {
-        expect(this.error.propertyErrors.email.type).to.equal('required')
-      })
-    })
-
-    context('error for nested field', function () {
-      beforeEach(function () {
-        const resource = new Resource(User)
-        this.error = resource.createValidationError(nestedValidationError)
-      })
-
-      it('2 errors, one for root field and one for an actual nested field', function () {
-        expect(Object.keys(this.error.propertyErrors)).to.have.lengthOf(2)
-      })
-
-      it('has error for nested "parent.age" field', function () {
-        expect(this.error.propertyErrors['parent.age'].type).to.equal('Number')
-      })
-
-      it('has error for "parent" field', function () {
-        expect(this.error.propertyErrors.parent.type).to.equal('ValidationError')
-      })
-    })
-  })
-
-  describe('createCastError', function () {
-    context('throwin cast error on update after one key has error', function () {
-      const errorKey = 'parent.age' // because "castError" has been taken for this particular key
-
-      beforeEach(function () {
-        const resource = new Resource(User)
-        this.error = resource.createCastError(castError, {
-          otherKeyWithTheSameErrorValue: castError.value,
-          [errorKey]: castError.value,
-          otherKey: 'othervalue',
-        })
-      })
-
-      it('has error for nested "parent.age" (errorKey) field', function () {
-        expect(this.error.propertyErrors[errorKey].type).to.equal('Number')
-      })
-    })
-
-    context('throwing cast error on update when one array field has error', function () {
-      beforeEach(function () {
-        const resource = new Resource(User)
-        this.error = resource.createCastError(castArrayError, {
-          'authors.1': castArrayError.value,
-        })
-      })
-
-      it('throws an error for root field', function () {
-        expect(this.error.propertyErrors['authors.1'].type).to.equal('ObjectId')
-      })
-    })
   })
 
   describe('#constructor', function () {
@@ -356,7 +284,7 @@ describe('Resource', function () {
     })
   })
 
-  describe.only('#update', function () {
+  describe('#update', function () {
     beforeEach(async function () {
       this.params = {
         content: 'Test content',
