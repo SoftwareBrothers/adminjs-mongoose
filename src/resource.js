@@ -3,12 +3,13 @@
 const {
   BaseResource,
   BaseRecord,
-  ValidationError,
 } = require('admin-bro')
 const _ = require('lodash')
 const { unflatten } = require('flat')
 const Property = require('./property')
 const convertFilter = require('./utils/convert-filter')
+const createValidationError = require('./utils/create-validation-error')
+const createCastError = require('./utils/create-cast-error')
 
 // Error thrown by mongoose in case of validation error
 const MONGOOSE_VALIDATION_ERROR = 'ValidationError'
@@ -148,7 +149,7 @@ class Resource extends BaseResource {
       mongooseDocument = await mongooseDocument.save()
     } catch (error) {
       if (error.name === MONGOOSE_VALIDATION_ERROR) {
-        throw this.createValidationError(error)
+        throw createValidationError(error)
       }
       throw error
     }
@@ -168,13 +169,13 @@ class Resource extends BaseResource {
       return mongooseObject.toObject()
     } catch (error) {
       if (error.name === MONGOOSE_VALIDATION_ERROR) {
-        throw this.createValidationError(error)
+        throw createValidationError(error)
       }
       // In update cast errors are not wrapped into a validation errors (as it happens in create).
       // that is why we have to have a different way of handling them - check out tests to see
       // example error
       if (error.name === MONGOOSE_CAST_ERROR) {
-        throw this.createCastError(error, parsedParams)
+        throw createCastError(error, parsedParams)
       }
       throw error
     }
@@ -182,38 +183,6 @@ class Resource extends BaseResource {
 
   async delete(id) {
     return this.MongooseModel.deleteOne({ _id: id })
-  }
-
-  createValidationError(originalError) {
-    const errors = Object.keys(originalError.errors).reduce((memo, key) => {
-      const { message, kind, name } = originalError.errors[key]
-      return {
-        ...memo,
-        [key]: {
-          message,
-          type: kind || name,
-        },
-      }
-    }, {})
-    return new ValidationError(`${this.name()} validation failed`, errors)
-  }
-
-  createCastError(originalError, params) {
-    // cas error has only the nested path. So when an actual path is 'parents.age'
-    // originalError will have just a 'age'. That is why we are finding first param
-    // with the same value as the error has and path ending the same like path in
-    // originalError or ending with path with array notation: "${path}.0"
-    const pathRegex = new RegExp(`${originalError.path}(\\.\\d+)?$`)
-    const errorParam = Object.entries(params).find(([key, value]) => (
-      value === originalError.value && key.match(pathRegex)
-    ))
-    const errors = {
-      [errorParam[0]]: {
-        message: originalError.message,
-        type: originalError.kind || originalError.name,
-      },
-    }
-    return new ValidationError(`${this.name()} validation failed`, errors)
   }
 
   static stringifyId(mongooseObj) {
