@@ -355,4 +355,28 @@ describe('Resource', function () {
       })
     })
   })
+
+  describe.only('#update', function () {
+    beforeEach(async function () {
+      this.params = {
+        content: 'Test content',
+      }
+      this.resource = new Resource(Article)
+      const res = await this.resource.create(this.params)
+      this.recordId = res._id
+    })
+
+    afterEach(async function () {
+      await Article.deleteMany({})
+    })
+
+    it('change record and return updated', async function () {
+      const article = await this.resource.update(
+        this.recordId,
+        { content: 'Updated content' },
+      )
+
+      expect(article.content).to.equal('Updated content')
+    })
+  })
 })
