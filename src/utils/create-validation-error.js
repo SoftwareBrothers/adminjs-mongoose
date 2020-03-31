@@ -11,7 +11,7 @@ const createValidationError = (originalError) => {
       },
     }
   }, {})
-  return new ValidationError(errors)
+  return new ValidationError(undefined, errors)
 }
 
 module.exports = createValidationError

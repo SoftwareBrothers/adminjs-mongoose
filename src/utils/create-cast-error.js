@@ -11,6 +11,6 @@ const createCastError = (originalError) => {
       type: originalError.kind || originalError.name,
     },
   }
-  return new ValidationError(errors)
+  return new ValidationError(undefined, errors)
 }
 module.exports = createCastError
