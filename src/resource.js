@@ -176,7 +176,7 @@ class Resource extends BaseResource {
       // that is why we have to have a different way of handling them - check out tests to see
       // example error
       if (error.name === MONGOOSE_CAST_ERROR) {
-        throw createCastError(error, parsedParams)
+        throw createCastError(error)
       }
       throw error
     }

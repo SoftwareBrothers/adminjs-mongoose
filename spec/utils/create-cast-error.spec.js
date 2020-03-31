@@ -5,30 +5,22 @@ const createCastError = require('../../src/utils/create-cast-error')
 
 describe('createCastError', function () {
   context('throwin cast error on update after one key has error', function () {
-    const errorKey = 'parent.age' // because "castError" has been taken for this particular key
-
     beforeEach(function () {
-      this.error = createCastError(castError, {
-        otherKeyWithTheSameErrorValue: castError.value,
-        [errorKey]: castError.value,
-        otherKey: 'othervalue',
-      })
+      this.error = createCastError(castError)
     })
 
     it('has error for nested "parent.age" (errorKey) field', function () {
-      expect(this.error.propertyErrors[errorKey].type).to.equal('Number')
+      expect(this.error.propertyErrors.age.type).to.equal('Number')
     })
   })
 
   context('throwing cast error on update when one array field has error', function () {
     beforeEach(function () {
-      this.error = createCastError(castArrayError, {
-        'authors.1': castArrayError.value,
-      })
+      this.error = createCastError(castArrayError)
     })
 
     it('throws an error for root field', function () {
-      expect(this.error.propertyErrors['authors.1'].type).to.equal('ObjectId')
+      expect(this.error.propertyErrors.authors.type).to.equal('ObjectId')
     })
   })
 })
