@@ -216,6 +216,25 @@ describe('Resource', function () {
       })
     })
 
+    describe('record with unique field', function () {
+      let resource
+      const createPesel = pesel => resource.create({ pesel })
+
+      beforeEach(() => {
+        resource = new Resource(Pesel)
+      })
+
+      it('throws duplicate error', async function () {
+        try {
+          await createPesel('1')
+          await createPesel('1')
+        } catch (error) {
+          expect(error).to.be.an.instanceOf(ValidationError)
+          expect(error.propertyErrors.pesel.type).to.equal('duplicate')
+        }
+      })
+    })
+
     context('id field passed as an empty string', function () {
       beforeEach(async function () {
         this.params = { content: 'some content', createdBy: '' }

@@ -28,6 +28,7 @@ afterEach(function () {
 })
 
 after(function () {
+  Object.values(this.mongooseConnection.models).forEach(model => model.remove({}))
   this.mongooseConnection.connection.close()
 })
 
