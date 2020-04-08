@@ -1,7 +1,6 @@
 language: node_js
 env:
-  - TEST_MONGO_URL=mongodb://127.0.0.1/admin-bro-mongoose-adapter NODE_ENV=test
-  - MONGODB=4.2.5
+  - TEST_MONGO_URL=mongodb://127.0.0.1/admin-bro-mongoose-adapter NODE_ENV=test MONGODB=4.2.5
 node_js:
   - '8'
 install:
