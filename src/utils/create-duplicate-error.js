@@ -1,8 +1,6 @@
 const { ValidationError } = require('admin-bro')
 
-const createDuplicateError = (error) => {
-  console.log(JSON.stringify(error))
-  const { keyValue: duplicateEntry } = error
+const createDuplicateError = ({ keyValue: duplicateEntry }) => {
   const [[keyName, keyValue]] = Object.entries(duplicateEntry)
 
   return new ValidationError({

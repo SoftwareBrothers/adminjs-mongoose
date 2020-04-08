@@ -22,7 +22,9 @@ global.User = mongoose.model('User', new mongoose.Schema({
 }))
 
 global.Pesel = mongoose.model('Pesel', new mongoose.Schema({
-  pesel: { type: String, unique: true, required: true },
+  pesel: {
+    type: String, unique: true, required: true, sparse: true,
+  },
 }))
 
 global.Article = mongoose.model('Article', new mongoose.Schema({
