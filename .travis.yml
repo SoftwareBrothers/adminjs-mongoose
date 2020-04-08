@@ -1,13 +1,24 @@
 language: node_js
-services:
-- mongodb
 env:
-- TEST_MONGO_URL=mongodb://127.0.0.1/admin-bro-mongoose-adapter NODE_ENV=test
+  - TEST_MONGO_URL=mongodb://127.0.0.1/admin-bro-mongoose-adapter NODE_ENV=test
+  - MONGODB=4.2.5
 node_js:
-- '8'
+  - '8'
+install:
+  - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-${MONGODB}.tgz
+  - tar xzf mongodb-linux-x86_64-${MONGODB}.tgz
+  - ${PWD}/mongodb-linux-x86_64-${MONGODB}/bin/mongod --version
+  - pip install Pillow
+  - python setup.py install
+
+before_script:
+  - mkdir ${PWD}/mongodb-linux-x86_64-${MONGODB}/data
+  - ${PWD}/mongodb-linux-x86_64-${MONGODB}/bin/mongod --dbpath ${PWD}/mongodb-linux-x86_64-${MONGODB}/data --logpath ${PWD}/mongodb-linux-x86_64-${MONGODB}/mongodb.log --fork
+
 script:
-- yarn run lint
-- yarn test
+  - yarn run lint
+  - yarn test
+
 deploy:
   # tag: beta
   provider: npm
@@ -17,6 +28,10 @@ deploy:
   on:
     tags: true
     repo: SoftwareBrothers/admin-bro-mongoose
+
 notifications:
   slack:
     secure: Z7J5Z6ATkg8PK5dd5F8nXuaj8FytYSVrDRUG4Qc7CafABLwnh56ogGq2I2y15lzwVRk627gv9oNg2T8DnZTcMzupCrRVQ68X4qP9QQ3KARxcPEwuYsazCWggQ6UNEkxDaVvKwLPosMni1HqpVwhReC9zcYfnGpz2A7mMsSSS9XNzynKzAl3zRzs8GMsmlHCZlN3KAY3ejKUavqsMxbkGIV5lyywqKjXrEDZclKSogsYxsci6AY6vYrzznr/BFC8tS5NCQE6McowN3bhKsPTfRrz58OUABOns0N4eEXpdMrNmpro8i6V5KQ7o+7pbplBcUuXMXApKYCnLewcEsF0S4lC8H1KzxOz/haquj5FTz6MLv6uSjCBgvu+ziCNnh1ZH3GFnhA0d9xg7WbbnFJg5fi3rWQQXEP830Oy3XYeCJXKYAuiskx+H6xR0ZzenRvmw9AvjtA2XDh/CsIzmE/+yXaJSIi1mrdr8xwkedIsKmNz7MJeZlTKHxq6JXdV2ADpLylT0eoutzjdfsecM+3aYFmla4WjVuhVnBJRNfmnm7qfqcV9COr0OE7pbpFi5zdrHJKrEf4/92xZ644vE5ifSvri6plANbROUITlBd2sKXUStqj2+c7BnaTmDd64PlNM3JQ87OpibGz6hc5xx6p+j85vUxveysQmnqi6B5VCLD5c=
+
+after_script:
+  - pkill mongod
