@@ -2,7 +2,7 @@ language: node_js
 services:
 - mongodb
 env:
-- TEST_MONGO_URL=mongodb://127.0.0.1/admin-bro-mongoose NODE_ENV=test
+- TEST_MONGO_URL=mongodb://127.0.0.1/admin-bro-mongoose-adapter NODE_ENV=test
 node_js:
 - '8'
 script:
