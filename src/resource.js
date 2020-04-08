@@ -9,13 +9,12 @@ const { unflatten } = require('flat')
 const Property = require('./property')
 const convertFilter = require('./utils/convert-filter')
 const createValidationError = require('./utils/create-validation-error')
+const createDuplicateError = require('./utils/create-duplicate-error')
 const createCastError = require('./utils/create-cast-error')
 
-// Error thrown by mongoose in case of validation error
-const MONGOOSE_VALIDATION_ERROR = 'ValidationError'
-
-// Error thrown by mongoose in case of casting error (writing string to Number field)
-const MONGOOSE_CAST_ERROR = 'CastError'
+const {
+  MONGOOSE_CAST_ERROR, MONGOOSE_DUPLICATE_ERROR_CODE, MONGOOSE_VALIDATION_ERROR,
+} = require('./utils/errors')
 
 /**
  * Adapter for mongoose resource
@@ -151,6 +150,9 @@ class Resource extends BaseResource {
       if (error.name === MONGOOSE_VALIDATION_ERROR) {
         throw createValidationError(error)
       }
+      if (error.code === MONGOOSE_DUPLICATE_ERROR_CODE) {
+        throw createDuplicateError(error)
+      }
       throw error
     }
     return mongooseDocument.toObject()
@@ -171,6 +173,9 @@ class Resource extends BaseResource {
     } catch (error) {
       if (error.name === MONGOOSE_VALIDATION_ERROR) {
         throw createValidationError(error)
+      }
+      if (error.name === MONGOOSE_DUPLICATE_ERROR_CODE) {
+        throw createDuplicateError(error)
       }
       // In update cast errors are not wrapped into a validation errors (as it happens in create).
       // that is why we have to have a different way of handling them - check out tests to see

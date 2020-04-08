@@ -21,6 +21,12 @@ global.User = mongoose.model('User', new mongoose.Schema({
   family: [SubType],
 }))
 
+global.Pesel = mongoose.model('Pesel', new mongoose.Schema({
+  pesel: {
+    type: String, unique: true, required: true, sparse: true,
+  },
+}))
+
 global.Article = mongoose.model('Article', new mongoose.Schema({
   content: String,
   owners: [{

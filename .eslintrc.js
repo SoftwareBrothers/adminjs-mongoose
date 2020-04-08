@@ -46,6 +46,7 @@ module.exports = {
         'expect': true,
         'factory': true,
         'sandbox': true,
+        'Pesel': true,
         'User': true,
         'Article': true
     }
