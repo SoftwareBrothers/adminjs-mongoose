@@ -1,13 +1,23 @@
 const { ValidationError } = require('admin-bro')
 
-const createDuplicateError = ({ keyValue: duplicateEntry }) => {
-  const [[keyName, keyValue]] = Object.entries(duplicateEntry)
+const createDuplicateMessage = message => ({
+  type: 'duplicate',
+  message,
+})
+
+const createDuplicateError = ({ keyValue: duplicateEntry, errmsg }, document) => {
+  if (!duplicateEntry) {
+    const duplicatedKey = Object.keys(document).find(key => errmsg.includes(key))
+
+    return new ValidationError({
+      [duplicatedKey]: createDuplicateMessage(`Record with that ${duplicatedKey} already exists`),
+    })
+  }
+
+  const [[keyName]] = Object.entries(duplicateEntry)
 
   return new ValidationError({
-    [keyName]: {
-      type: 'duplicate',
-      message: `Record with ${keyName}: '${keyValue}' already exists`,
-    },
+    [keyName]: createDuplicateMessage(`Record with that ${keyName} already exists`),
   })
 }
 

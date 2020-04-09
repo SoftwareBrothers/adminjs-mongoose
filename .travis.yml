@@ -4,7 +4,8 @@ services:
   - docker
 
 env:
-  - TEST_MONGO_URL=mongodb://localhost/admin-bro-mongoose NODE_ENV=test
+  - TEST_MONGO_URL=mongodb://localhost/admin-bro-mongoose NODE_ENV=test MONGO_VERSION=latest
+  - TEST_MONGO_URL=mongodb://localhost/admin-bro-mongoose NODE_ENV=test MONGO_VERSION=3.4
 
 before_script:
   - docker run -d -p 27017:27017 mongo

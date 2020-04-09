@@ -151,7 +151,7 @@ class Resource extends BaseResource {
         throw createValidationError(error)
       }
       if (error.code === MONGOOSE_DUPLICATE_ERROR_CODE) {
-        throw createDuplicateError(error)
+        throw createDuplicateError(error, mongooseDocument.toJSON())
       }
       throw error
     }
@@ -160,11 +160,12 @@ class Resource extends BaseResource {
 
   async update(id, params) {
     const parsedParams = this.parseParams(params)
+    const unflattedParams = unflatten(parsedParams)
     try {
       const mongooseObject = await this.MongooseModel.findOneAndUpdate({
         _id: id,
       }, {
-        $set: unflatten(parsedParams),
+        $set: unflattedParams,
       }, {
         new: true,
         runValidators: true,
@@ -174,8 +175,8 @@ class Resource extends BaseResource {
       if (error.name === MONGOOSE_VALIDATION_ERROR) {
         throw createValidationError(error)
       }
-      if (error.name === MONGOOSE_DUPLICATE_ERROR_CODE) {
-        throw createDuplicateError(error)
+      if (error.code === MONGOOSE_DUPLICATE_ERROR_CODE) {
+        throw createDuplicateError(error, unflattedParams)
       }
       // In update cast errors are not wrapped into a validation errors (as it happens in create).
       // that is why we have to have a different way of handling them - check out tests to see
