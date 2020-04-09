@@ -1,6 +1,6 @@
 {
   "name": "admin-bro-mongoose",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Mongoose adapter for admin-bro",
   "main": "index.js",
   "scripts": {

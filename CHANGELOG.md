@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Changelog maintained after version 0.3.1
 
-## [0.5.0] - unreleased
+## [0.5.1] - 09.04.2020
+
+### Added
+
+* handling of duplication error (unique constrain)
+
+## [0.5.0] - 04.04.2020
 
 ### Changed
 
