@@ -57,11 +57,9 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     needs:
-      - build
       - test
       - setup
       - publish
-      - cypress
     steps:
       - uses: technote-space/workflow-conclusion-action@v1
       - uses: 8398a7/action-slack@v3
