@@ -77,4 +77,16 @@ describe('Property', function () {
       expect(subProperties).to.have.lengthOf(6)
     })
   })
+
+  describe('#isRequired', function () {
+    it('returns true for required property', function () {
+      const property = new Property(User.schema.paths.email)
+      expect(property.isRequired()).to.equal(true)
+    })
+
+    it('returns string when property is an array of strings', function () {
+      const property = new Property(User.schema.paths.genre)
+      expect(property.isRequired()).to.equal(false)
+    })
+  })
 })

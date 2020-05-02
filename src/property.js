@@ -122,6 +122,12 @@ class Property extends BaseProperty {
   isSortable() {
     return this.type() !== 'mixed' && !this.isArray()
   }
+
+  isRequired() {
+    return this.mongoosePath.validators
+    && this.mongoosePath.validators.length
+    && !!this.mongoosePath.validators.find(validator => validator.type === 'required')
+  }
 }
 
 module.exports = Property
