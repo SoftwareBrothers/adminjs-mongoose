@@ -30,6 +30,11 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     needs: setup
+    services:
+      mongo:
+        image: mongo:3.4.23
+        ports:
+          - 27017:27017
     steps:
       - name: Checkout
         uses: actions/checkout@v2

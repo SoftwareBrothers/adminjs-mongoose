@@ -6,13 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Changelog maintained after version 0.3.1
 
-## [0.5.2] - 02.05.2020
+## Version v0.5.2b - 02.05.2020
 
 ### Added
 
 * [#318] added isRequired field
 
-## [0.5.1] - 09.04.2020
+## Version 0.5.1 - 09.04.2020
 
 ### Added
 
