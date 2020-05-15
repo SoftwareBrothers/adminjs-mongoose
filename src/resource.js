@@ -13,7 +13,9 @@ const createDuplicateError = require('./utils/create-duplicate-error')
 const createCastError = require('./utils/create-cast-error')
 
 const {
-  MONGOOSE_CAST_ERROR, MONGOOSE_DUPLICATE_ERROR_CODE, MONGOOSE_VALIDATION_ERROR,
+  MONGOOSE_CAST_ERROR,
+  MONGOOSE_DUPLICATE_ERROR_CODE,
+  MONGOOSE_VALIDATION_ERROR,
 } = require('./utils/errors')
 
 /**
@@ -26,16 +28,16 @@ class Resource extends BaseResource {
   }
 
   /**
-   * @typedef {Object} MongooseModel
-   * @private
-   * @see https://mongoosejs.com/docs/models.html
-  */
+     * @typedef {Object} MongooseModel
+     * @private
+     * @see https://mongoosejs.com/docs/models.html
+     */
 
   /**
-   * Initialize the class with the Resource name
-   * @param {MongooseModel} MongooseModel Class which subclass mongoose.Model
-   * @memberof Resource
-   */
+     * Initialize the class with the Resource name
+     * @param {MongooseModel} MongooseModel Class which subclass mongoose.Model
+     * @memberof Resource
+     */
   constructor(MongooseModel) {
     super(MongooseModel)
     this.dbType = 'mongodb'
@@ -78,12 +80,13 @@ class Resource extends BaseResource {
 
   async find(filters = {}, { limit = 20, offset = 0, sort = {} }) {
     const { direction, sortBy } = sort
-    const sortingParam = { [sortBy]: direction }
+    const sortingParam = {
+      [sortBy]: direction,
+    }
     const mongooseObjects = await this.MongooseModel
-      .find(convertFilter(filters))
-      .skip(offset)
-      .limit(limit)
-      .sort(sortingParam)
+      .find(convertFilter(filters), {}, {
+        autopopulate: false, skip: offset, limit, sort: sortingParam,
+      })
     return mongooseObjects.map(mongooseObject => new BaseRecord(
       Resource.stringifyId(mongooseObject), this,
     ))
@@ -126,12 +129,12 @@ class Resource extends BaseResource {
   }
 
   async findOne(id) {
-    const mongooseObject = await this.MongooseModel.findById(id)
+    const mongooseObject = await this.MongooseModel.findById(id, {}, { autopopulate: false })
     return new BaseRecord(Resource.stringifyId(mongooseObject), this)
   }
 
   async findMany(ids) {
-    const mongooseObjects = await this.MongooseModel.find({ _id: ids })
+    const mongooseObjects = await this.MongooseModel.find({ _id: ids }, {}, { autopopulate: false })
     return mongooseObjects.map(mongooseObject => (
       new BaseRecord(Resource.stringifyId(mongooseObject), this)
     ))
@@ -202,16 +205,16 @@ class Resource extends BaseResource {
   }
 
   /**
-   * Check all params against values they hold. In case of wrong value it corrects it.
-   *
-   * What it does esactly:
-   * - changes all empty strings to `null`s for the ObjectID properties.
-   * - changes all empty strings to [] for array fields
-   *
-   * @param   {Object}  params  received from AdminBro form
-   *
-   * @return  {Object}          converted params
-   */
+     * Check all params against values they hold. In case of wrong value it corrects it.
+     *
+     * What it does esactly:
+     * - changes all empty strings to `null`s for the ObjectID properties.
+     * - changes all empty strings to [] for array fields
+     *
+     * @param   {Object}  params  received from AdminBro form
+     *
+     * @return  {Object}          converted params
+     */
   parseParams(params) {
     const parasedParams = { ...params }
 
