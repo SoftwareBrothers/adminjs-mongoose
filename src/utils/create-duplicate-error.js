@@ -1,4 +1,4 @@
-const { ValidationError } = require('admin-bro')
+const { ValidationError } = require('@admin-bro/core')
 
 const createDuplicateMessage = message => ({
   type: 'duplicate',

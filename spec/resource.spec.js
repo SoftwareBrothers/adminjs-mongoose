@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { BaseRecord, ValidationError, Filter } = require('admin-bro')
+const { BaseRecord, ValidationError, Filter } = require('@admin-bro/core')
 
 const Resource = require('../src/resource')
 const Property = require('../src/property')

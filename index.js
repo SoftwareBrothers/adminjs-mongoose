@@ -1,5 +1,5 @@
 /**
- * @module admin-bro-mongoose
+ * @module admin-bro/mongoose
  *
  * @description
  * ### A Mongoose database adapter for AdminBro.
@@ -9,7 +9,7 @@
  * To install the adapter run
  *
  * ```
- * yarn add admin-bro-mongoose
+ * yarn add admin-bro/mongoose
  * ```
  *
  * ### Usage
@@ -17,8 +17,8 @@
  * In order to use it in your project register the adapter first:
  *
  * ```javascript
- * const AdminBro = require('admin-bro')
- * const AdminBroMongoose = require('admin-bro-mongoose')
+ * const AdminBro = require('@admin-bro/core')
+ * const AdminBroMongoose = require('@admin-bro/mongoose')
  *
  * AdminBro.registerAdapter(AdminBroMongoose)
  * ```
