@@ -3,7 +3,7 @@
 const {
   BaseResource,
   BaseRecord,
-} = require('@admin-bro/core')
+} = require('admin-bro')
 const _ = require('lodash')
 const { unflatten } = require('flat')
 const Property = require('./property')

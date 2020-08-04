@@ -1,4 +1,4 @@
-const { BaseProperty } = require('@admin-bro/core')
+const { BaseProperty } = require('admin-bro')
 
 const ID_PROPERTY = '_id'
 

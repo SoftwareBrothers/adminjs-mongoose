@@ -1,4 +1,4 @@
-const { ValidationError } = require('@admin-bro/core')
+const { ValidationError } = require('admin-bro')
 
 const createCastError = (originalError) => {
   // cas error has only the nested path. So when an actual path is 'parents.age'
