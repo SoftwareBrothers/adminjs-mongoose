@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@admin-bro/design-system@^1.3.2":
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/@admin-bro/design-system/-/design-system-1.3.2.tgz#ec409d189b5112dd27f8ece974f2a7252c6db8c7"
-  integrity sha512-uwPiOLYgqlEwBnaCmKh0FXdhsDZ4HNIVkCBXzEW9U2SNcccZprYFYE0r2W5m7j2A9yVTPnAwKrwzrYjSGe0OBw==
+"@admin-bro/design-system@^1.3.3":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@admin-bro/design-system/-/design-system-1.6.0.tgz#4371a57c7faed4e6d49eafe50615217a73a933d5"
+  integrity sha512-mVo26KVeB80tXEsqyc5Bw9Ysyod7k4VRuAF30isu1wqkwgJLbaAih8tDcNiahB4Ga0AKHKAYBfA5TUa4ULKvMQ==
   dependencies:
     "@carbon/icons-react" "^10.14.0"
     jw-paginate "^1.0.4"
@@ -1746,12 +1746,12 @@ acorn@^6.0.2:
   version "6.0.4"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.0.4.tgz#77377e7353b72ec5104550aa2d2097a2fd40b754"
 
-admin-bro@>=3.0.0-beta.1:
-  version "3.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/admin-bro/-/admin-bro-3.0.0-beta.7.tgz#c257b70c48163f7f35ac580bf1ad39b5f26c1fc6"
-  integrity sha512-1F11kuWeVmB3nxhrPqZpt/SouCY8SqPy9dfgXApCjhM9gL1NfaaEXEq+QM48q69wvgcYvamRo3Dre9sIDLTJxQ==
+admin-bro@>=3.0.0-beta.15:
+  version "3.0.0-beta.15"
+  resolved "https://registry.yarnpkg.com/admin-bro/-/admin-bro-3.0.0-beta.15.tgz#72b161c5c9ec21f36eb80bb60e826fcf4c181d88"
+  integrity sha512-v/pFh/j/wrTLuEadUhdZehCEFmvyjo1jwYXUiQMaO/JqKixrs3lf8s84W+0R5purV5QB+ChhGEoOQM7fVC7w/g==
   dependencies:
-    "@admin-bro/design-system" "^1.3.2"
+    "@admin-bro/design-system" "^1.3.3"
     "@babel/core" "^7.10.2"
     "@babel/parser" "^7.10.2"
     "@babel/plugin-transform-runtime" "^7.10.1"
