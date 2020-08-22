@@ -5,6 +5,7 @@ const Resource = require('../src/resource')
 const Property = require('../src/property')
 
 describe('Resource', function () {
+  this.timeout(5000)
   before(async function () {
     this.count = 12
     this.userRecords = await factory.createMany('user', this.count)

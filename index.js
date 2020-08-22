@@ -1,5 +1,5 @@
 /**
- * @module admin-bro-mongoose
+ * @module @admin-bro/mongoose
  *
  * @description
  * ### A Mongoose database adapter for AdminBro.
@@ -9,7 +9,7 @@
  * To install the adapter run
  *
  * ```
- * yarn add admin-bro-mongoose
+ * yarn add @admin-bro/mongoose
  * ```
  *
  * ### Usage
@@ -18,7 +18,7 @@
  *
  * ```javascript
  * const AdminBro = require('admin-bro')
- * const AdminBroMongoose = require('admin-bro-mongoose')
+ * const AdminBroMongoose = require('@admin-bro/mongoose')
  *
  * AdminBro.registerAdapter(AdminBroMongoose)
  * ```
@@ -48,7 +48,7 @@
  * ```
  *
  * > Notice, that we connected with the database BEFORE passing it to
- * > the **AdminBro({})** options. This is very important. Oterwise,
+ * > the **AdminBro({})** options. This is very important. Otherwise,
  * > AdminBro might not find any resources.
  *
  * ### Passing each resource
@@ -79,6 +79,7 @@
  * Implementation of {@link BaseDatabase} for Mongoose Adapter
  *
  * @type {typeof BaseDatabase}
+ * @memberof module:@admin-bro/mongoose
  * @static
  */
 const Database = require('./src/database')
@@ -87,6 +88,7 @@ const Database = require('./src/database')
  * Implementation of {@link BaseResource} for Mongoose Adapter
  *
  * @type {typeof BaseResource}
+ * @memberof module:@admin-bro/mongoose
  * @static
  */
 const Resource = require('./src/resource')

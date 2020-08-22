@@ -1,4 +1,4 @@
-## admin-bro-mongoose
+## @admin-bro/mongoose
 
 This is an official [AdminBro](https://github.com/SoftwareBrothers/admin-bro) adapter which integrates [mongoose ORM](https://mongoosejs.com/) into admin-bro.
 
@@ -13,7 +13,7 @@ The plugin can be registered using standard `AdminBro.registerAdapter` method.
 
 ```javascript
 const AdminBro = require('admin-bro')
-const AdminBroMongoose = require('admin-bro-mongoose')
+const AdminBroMongoose = require('@admin-bro/mongoose')
 
 AdminBro.registerAdapter(AdminBroMongoose)
 ```
