@@ -77,7 +77,7 @@ class Property extends BaseProperty {
 
   isVisible() {
     // fields containing password are hidden by default
-    return this.name() !== VERSION_KEY_PROPERTY && !this.name().match('password')
+    return this.name() !== VERSION_KEY_PROPERTY
   }
 
   isId() {
