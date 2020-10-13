@@ -1,7 +1,9 @@
 /**
  * @module @admin-bro/mongoose
+ * @subcategory Adapters
+ * @section modules
  *
- * @description
+ * @classdesc
  * ### A Mongoose database adapter for AdminBro.
  *
  * #### Installation
