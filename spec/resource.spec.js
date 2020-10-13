@@ -141,6 +141,7 @@ describe('Resource', function () {
   describe('#create', function () {
     context('correct record', function () {
       beforeEach(async function () {
+        this.testedValue = 18
         this.params = {
           email: 'john@doe.com',
           passwordHash: 'somesecretpasswordhash',
@@ -158,7 +159,7 @@ describe('Resource', function () {
           'family.0.surname': 'some string',
           'family.0.age': 13,
           'family.0.nestedArray.0.someProperty': 12,
-          'family.0.nestedArray.1.someProperty': 12,
+          'family.0.nestedArray.1.someProperty': this.testedValue,
           'family.0.nestedObject.someProperty': 12,
           'family.1.name': 'some string',
           'family.1.surname': 'some string',
@@ -168,7 +169,7 @@ describe('Resource', function () {
           'family.1.nestedObject.someProperty': 12,
         }
         this.resource = new Resource(User)
-        this.record = await this.resource.create(this.params)
+        this.params = await this.resource.create(this.params)
       })
 
       it('creates new object', async function () {
@@ -176,7 +177,15 @@ describe('Resource', function () {
       })
 
       it('returns Object', function () {
-        expect(this.record).to.be.an.instanceof(Object)
+        expect(this.params).to.be.an.instanceof(Object)
+      })
+
+      it('saves arrays', function () {
+        expect(this.params.family[0].nestedArray[1].someProperty).to.eq(this.testedValue)
+      })
+
+      it('changes flattens ObjectIds', function () {
+        expect(this.params._id).not.to.be.an.instanceof(Object)
       })
     })
 
