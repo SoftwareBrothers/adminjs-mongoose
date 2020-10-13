@@ -158,7 +158,7 @@ class Resource extends BaseResource {
       }
       throw error
     }
-    return this.parseParams(mongooseDocument.toObject())
+    return Resource.stringifyId(mongooseDocument.toObject())
   }
 
   async update(id, params) {
@@ -173,7 +173,7 @@ class Resource extends BaseResource {
         new: true,
         runValidators: true,
       })
-      return this.parseParams(mongooseObject.toObject())
+      return Resource.stringifyId(mongooseObject.toObject())
     } catch (error) {
       if (error.name === MONGOOSE_VALIDATION_ERROR) {
         throw createValidationError(error)
