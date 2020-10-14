@@ -1,4 +1,4 @@
-module.exports = {
+export const SAMPLE_CAST_ERROR = {
   stringValue: '"asdasd"',
   kind: 'Number',
   value: 'asdasd',

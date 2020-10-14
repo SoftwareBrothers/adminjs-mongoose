@@ -26,7 +26,7 @@ class Resource extends BaseResource {
      * @private
      * @see https://mongoosejs.com/docs/models.html
      */
-    private readonly MongooseModel: mongoose.Model<any>;
+    public readonly MongooseModel: mongoose.Model<any>;
 
     /**
      * Initialize the class with the Resource name

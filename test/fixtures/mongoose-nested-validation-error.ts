@@ -1,4 +1,4 @@
-module.exports = {
+export const SAMPLE_NESTED_VALIDATION_ERROR = {
   errors: {
     'parent.age': {
       message: 'Cast to Number failed for value "not a number" at path "age"',

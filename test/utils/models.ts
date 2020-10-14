@@ -1,9 +1,15 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+import { factory } from 'factory-girl'
 
+
+const globalAny = global as any
+
+// @ts-ignore
 const NestedObject = new mongoose.Schema({
   someProperty: Number,
 })
 
+// @ts-ignore
 const SubType = new mongoose.Schema({
   name: String,
   surname: String,
@@ -12,7 +18,7 @@ const SubType = new mongoose.Schema({
   nestedObject: NestedObject,
 })
 
-global.User = mongoose.model('User', new mongoose.Schema({
+globalAny.User = mongoose.model('User', new mongoose.Schema({
   email: { type: String, required: true },
   passwordHash: { type: String, required: true },
   genre: { type: String, enum: ['male', 'female'] },
@@ -21,13 +27,13 @@ global.User = mongoose.model('User', new mongoose.Schema({
   family: [SubType],
 }))
 
-global.Pesel = mongoose.model('Pesel', new mongoose.Schema({
+globalAny.Pesel = mongoose.model('Pesel', new mongoose.Schema({
   pesel: {
     type: String, unique: true, required: true, sparse: true,
   },
 }))
 
-global.Article = mongoose.model('Article', new mongoose.Schema({
+globalAny.Article = mongoose.model('Article', new mongoose.Schema({
   content: String,
   owners: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -38,6 +44,8 @@ global.Article = mongoose.model('Article', new mongoose.Schema({
     ref: 'User',
   },
 }))
+
+export const { User, Article, Pesel }: Record<string, mongoose.Model<any>> = globalAny
 
 factory.define('user', User, {
   email: factory.sequence('User.email', n => `john@doe${n}.com`),
