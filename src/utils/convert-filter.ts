@@ -1,5 +1,5 @@
-const escape = require('escape-regexp')
-const mongoose = require('mongoose')
+import escape from 'escape-regexp'
+import mongoose from 'mongoose'
 
 /**
  * Changes AdminBro's {@link Filter} to an object acceptible by a mongoose query.
@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
  * @param {Filter} filter
  * @private
  */
-const convertFilter = (filter) => {
+export const convertFilter = (filter) => {
   if (!filter) {
     return {}
   }
@@ -48,5 +48,3 @@ const convertFilter = (filter) => {
     }
   }, {})
 }
-
-module.exports = convertFilter

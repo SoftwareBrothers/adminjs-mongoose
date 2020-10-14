@@ -1,6 +1,7 @@
-const { ValidationError } = require('admin-bro')
+import { ValidationError } from 'admin-bro'
 
-const createCastError = (originalError) => {
+
+export const createCastError = (originalError) => {
   // cas error has only the nested path. So when an actual path is 'parents.age'
   // originalError will have just a 'age'. That is why we are finding first param
   // with the same value as the error has and path ending the same like path in
@@ -13,4 +14,3 @@ const createCastError = (originalError) => {
   }
   return new ValidationError(errors)
 }
-module.exports = createCastError

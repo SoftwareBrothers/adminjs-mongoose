@@ -82,7 +82,7 @@
  * @memberof module:@admin-bro/mongoose
  * @static
  */
-const Database = require('./src/database')
+import Database from "./src/database";
 
 /**
  * Implementation of {@link BaseResource} for Mongoose Adapter
@@ -93,4 +93,5 @@ const Database = require('./src/database')
  */
 const Resource = require('./src/resource')
 
-module.exports = { Database, Resource }
+module.exports = {Database, Resource}
+export {Database, Resource}

@@ -5,11 +5,11 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "dev": "tsc --watch",
+    "dev": "rm -rf lib && tsc --watch",
     "build": "rm -rf lib && tsc",
     "test": "mocha spec/index.js",
     "cover": "NODE_ENV=test nyc --reporter=html -x=spec -x=coverage --all=true npm test",
-    "lint": "eslint './spec/**/*.js' './src/**/*.js'",
+    "lint": "eslint './spec/**/*.js' './src/**/*'",
     "release": "semantic-release"
   },
   "repository": {
@@ -35,6 +35,7 @@
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@semantic-release/git": "^9.0.0",
+    "@types/mongoose": "^5.7.36",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
     "admin-bro": "^3.0.0",

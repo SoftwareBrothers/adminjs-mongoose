@@ -4,7 +4,11 @@ module.exports = {
         'node': true,
         'mocha': true
     },
-    'extends': 'airbnb-base',
+    'extends': [
+        'airbnb-base'
+    ],
+    parser: "@typescript-eslint/parser",
+    plugins: ["@typescript-eslint/eslint-plugin"],
     'parserOptions': {
         'ecmaVersion': 2018,
         'sourceType': 'module'
@@ -27,10 +31,13 @@ module.exports = {
             'never'
         ],
         'import/no-unresolved': 'off',
+        'import/prefer-default-export': 'off',
         'no-underscore-dangle': 'off',
         'guard-for-in': 'off',
         'no-restricted-syntax': 'off',
         'no-await-in-loop': 'off',
+        'no-param-reassign': 'off',
+        "import/extensions": 'off'
     },
     overrides: [
         {

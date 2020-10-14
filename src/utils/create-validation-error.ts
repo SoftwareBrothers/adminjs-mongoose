@@ -1,6 +1,6 @@
-const { ValidationError } = require('admin-bro')
+import { ValidationError } from 'admin-bro'
 
-const createValidationError = (originalError) => {
+export const createValidationError = (originalError) => {
   const errors = Object.keys(originalError.errors).reduce((memo, key) => {
     const { message, kind, name } = originalError.errors[key]
     return {
@@ -13,5 +13,3 @@ const createValidationError = (originalError) => {
   }, {})
   return new ValidationError(errors)
 }
-
-module.exports = createValidationError
