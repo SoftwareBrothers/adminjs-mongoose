@@ -2,7 +2,8 @@
   "name": "@admin-bro/mongoose",
   "version": "1.0.0",
   "description": "Mongoose adapter for admin-bro",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "dev": "tsc --watch",
     "build": "rm -rf lib && tsc",
