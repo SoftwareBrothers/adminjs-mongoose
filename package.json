@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/SoftwareBrothers/admin-bro-mongoose#readme",
   "peerDependencies": {
-    "admin-bro": "^3.0.0",
+    "admin-bro": ">=3.3.0-beta.26",
     "mongoose": ">=5"
   },
   "dependencies": {
@@ -39,7 +39,7 @@
     "@types/mongoose": "^5.7.36",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
-    "admin-bro": "^3.0.0",
+    "admin-bro": "^3.3.0-beta.26",
     "chai": "^4.2.0",
     "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
