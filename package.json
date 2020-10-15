@@ -1,6 +1,6 @@
 {
   "name": "@admin-bro/mongoose",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Mongoose adapter for admin-bro",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
