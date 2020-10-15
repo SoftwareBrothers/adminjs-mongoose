@@ -2,30 +2,17 @@ import Resource from '../../src/resource'
 import { Article } from '../utils/models'
 
 describe('Resource #update', () => {
-  let params
-  let resource
-  let recordId
-
-  beforeEach(async () => {
-    params = {
+  it('changes record and returns updated', async () => {
+    const resource = new Resource(Article)
+    const initialRecord = await resource.create({
       content: 'Test content',
-    }
+    })
 
-    resource = new Resource(Article)
-    const res = await resource.create(params)
-    recordId = res._id
-  })
-
-  afterEach(async () => {
-    await Article.deleteMany({})
-  })
-
-  it('change record and return updated', async () => {
-    const article = await resource.update(
-      recordId,
+    const updatedRecord = await resource.update(
+      initialRecord._id,
       { content: 'Updated content' },
     )
 
-    expect(article.content).toEqual('Updated content')
+    expect(updatedRecord.content).toEqual('Updated content')
   })
 })

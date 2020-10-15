@@ -1,4 +1,4 @@
-import { BaseRecord, BaseResource } from 'admin-bro'
+import Filter, { BaseRecord, BaseResource } from 'admin-bro'
 
 import { unflatten } from 'flat'
 import mongoose from 'mongoose'
@@ -72,7 +72,7 @@ class Resource extends BaseResource {
       return null
     }
 
-    async count(filters) {
+    async count(filters = null) {
       return this.MongooseModel.find(convertFilter(filters)).countDocuments()
     }
 
@@ -88,44 +88,6 @@ class Resource extends BaseResource {
       return mongooseObjects.map(mongooseObject => new BaseRecord(
         Resource.stringifyId(mongooseObject), this,
       ))
-    }
-
-    fillPopulatedData(baseRecord, path, recordsHash) {
-      const id = baseRecord.param(path)
-      if (recordsHash[id]) {
-        const referenceRecord = new BaseRecord(
-          Resource.stringifyId(recordsHash[id]), this,
-        )
-        baseRecord.populated[path] = referenceRecord
-      }
-    }
-
-    async populate(baseRecords, property) {
-      const ids = baseRecords.reduce((memo, baseRecord) => {
-        if (property.isArray()) {
-          const array = baseRecord.param(property.name()) || []
-          return [...memo, ...array]
-        }
-        return [...memo, baseRecord.param(property.name())]
-      }, [])
-      const records = await this.MongooseModel.find({ _id: ids })
-      const recordsHash = records.reduce((memo, record) => {
-        memo[record._id] = record
-        return memo
-      }, {})
-
-      baseRecords.forEach((baseRecord) => {
-        if (property.isArray()) {
-          const filtered = baseRecord.namespaceParams(property.name()) || {}
-          for (const path of Object.keys(filtered)) {
-            this.fillPopulatedData(baseRecord, path, recordsHash)
-          }
-        } else {
-          this.fillPopulatedData(baseRecord, property.name(), recordsHash)
-        }
-      })
-
-      return baseRecords
     }
 
     async findOne(id) {

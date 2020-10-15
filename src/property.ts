@@ -34,9 +34,6 @@ class Property extends BaseProperty {
      */
     constructor(path, position = 0) {
       super({ path: path.path, position })
-      // TODO: Fix in admin-bro core
-      // @ts-ignore
-      this._position = position
       this.mongoosePath = path
     }
 
@@ -56,7 +53,6 @@ class Property extends BaseProperty {
         if (this.reference()) {
           return 'reference'
         }
-        // TODO: Check if doesnt break anything
         return 'string'
       case 'Decimal128':
         return 'float'
