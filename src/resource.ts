@@ -1,4 +1,4 @@
-import Filter, { BaseRecord, BaseResource } from 'admin-bro'
+import { BaseRecord, BaseResource } from 'admin-bro'
 
 import { unflatten } from 'flat'
 import mongoose from 'mongoose'
@@ -123,7 +123,7 @@ class Resource extends BaseResource {
         }
         throw error
       }
-      return mongooseDocument.toObject()
+      return Resource.stringifyId(mongooseDocument.toObject())
     }
 
     async update(id, params) {
@@ -138,7 +138,7 @@ class Resource extends BaseResource {
           new: true,
           runValidators: true,
         })
-        return mongooseObject.toObject()
+        return Resource.stringifyId(mongooseObject.toObject())
       } catch (error) {
         if (error.name === MONGOOSE_VALIDATION_ERROR) {
           throw createValidationError(error)
@@ -172,7 +172,7 @@ class Resource extends BaseResource {
     /**
      * Check all params against values they hold. In case of wrong value it corrects it.
      *
-     * What it does esactly:
+     * What it does exactly:
      * - changes all empty strings to `null`s for the ObjectID properties.
      * - changes all empty strings to [] for array fields
      *
@@ -181,7 +181,7 @@ class Resource extends BaseResource {
      * @return  {Object}          converted params
      */
     parseParams(params) {
-      const parasedParams = { ...params }
+      const parsedParams = { ...params }
 
       // this function handles ObjectIDs and Arrays recursively
       const handleProperty = (prefix = '') => (property) => {
@@ -193,32 +193,35 @@ class Resource extends BaseResource {
         // mongoose doesn't supply us with the same path as we're using in our data
         // so we need to improvise
         const fullPath = [prefix, path].filter(Boolean).join('.')
-        const value = parasedParams[fullPath]
+        const value = parsedParams[fullPath]
 
         // this handles missing ObjectIDs
         if (instance === 'ObjectID') {
           if (value === '') {
-            parasedParams[fullPath] = null
+            parsedParams[fullPath] = null
+          } else if (value) {
+          // this works similar as this.stringifyId
+            parsedParams[fullPath] = value.toString()
           }
         }
 
-        // this handles empty Arrays or recurses into all properties of a filled Array
+        // this handles empty Arrays or recurse into all properties of a filled Array
         if (instance === 'Array') {
           if (value === '') {
-            parasedParams[fullPath] = []
+            parsedParams[fullPath] = []
           } else if (schema && schema.paths) { // we only want arrays of objects (with sub-paths)
             const subProperties = Object.values(schema.paths)
             // eslint-disable-next-line no-plusplus, no-constant-condition
             for (let i = 0; true; i++) { // loop over every item
               const newPrefix = `${fullPath}.${i}`
-              if (parasedParams[newPrefix] === '') {
-                // this means we have an empty object here
-                parasedParams[newPrefix] = {}
-              } else if (!Object.keys(parasedParams).some(key => key.startsWith(newPrefix))) {
-                // we're past the last index of this array
+              if (parsedParams[newPrefix] === '') {
+              // this means we have an empty object here
+                parsedParams[newPrefix] = {}
+              } else if (!Object.keys(parsedParams).some(key => key.startsWith(newPrefix))) {
+              // we're past the last index of this array
                 break
               } else {
-                // recurse into the object
+              // recurse into the object
                 subProperties.forEach(handleProperty(newPrefix))
               }
             }
@@ -227,8 +230,8 @@ class Resource extends BaseResource {
 
         // this handles all properties of an object
         if (instance === 'Embedded') {
-          if (parasedParams[fullPath] === '') {
-            parasedParams[fullPath] = {}
+          if (parsedParams[fullPath] === '') {
+            parsedParams[fullPath] = {}
           } else {
             const subProperties = Object.values(schema.paths)
             subProperties.forEach(handleProperty(fullPath))
@@ -238,7 +241,7 @@ class Resource extends BaseResource {
 
       this.properties().forEach(({ mongoosePath }) => handleProperty()(mongoosePath))
 
-      return parasedParams
+      return parsedParams
     }
 }
 
