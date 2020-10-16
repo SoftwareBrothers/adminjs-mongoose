@@ -1,6 +1,6 @@
 import { ValidationError } from 'admin-bro'
 
-export const createValidationError = (originalError) => {
+export const createValidationError = (originalError): ValidationError => {
   const errors = Object.keys(originalError.errors).reduce((memo, key) => {
     const { message, kind, name } = originalError.errors[key]
     return {

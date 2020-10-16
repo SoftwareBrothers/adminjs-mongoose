@@ -77,8 +77,7 @@ class Property extends BaseProperty {
     }
 
     isVisible() {
-      // fields containing password are hidden by default
-      return this.name() !== VERSION_KEY_PROPERTY && !this.name().match('password')
+      return this.name() !== VERSION_KEY_PROPERTY
     }
 
     isId() {
@@ -86,9 +85,7 @@ class Property extends BaseProperty {
     }
 
     availableValues() {
-      return this.mongoosePath.enumValues && this.mongoosePath.enumValues.length
-        ? this.mongoosePath.enumValues
-        : null
+      return this.mongoosePath.enumValues?.length ? this.mongoosePath.enumValues : null
     }
 
     isArray() {
@@ -121,9 +118,7 @@ class Property extends BaseProperty {
     }
 
     isRequired() {
-      return this.mongoosePath.validators
-            && this.mongoosePath.validators.length
-            && !!this.mongoosePath.validators.find(validator => validator.type === 'required')
+      return !!this.mongoosePath.validators?.find?.(validator => validator.type === 'required')
     }
 }
 

@@ -1,6 +1,4 @@
-import { BaseRecord, BaseResource } from 'admin-bro'
-
-import { unflatten } from 'flat'
+import { BaseRecord, BaseResource, flat } from 'admin-bro'
 import mongoose from 'mongoose'
 import { get } from 'lodash'
 import { FindOptions } from './utils/filter.types'
@@ -64,16 +62,12 @@ class Resource extends BaseResource {
       ))
     }
 
-    property(name) {
-      const position = this.properties().findIndex(property => property.path() === name)
-      if (position >= 0) {
-        return this.properties()[position]
-      }
-      return null
+    property(name:string) {
+      return this.properties().find(property => property.path() === name) ?? null
     }
 
     async count(filters = null) {
-      return this.MongooseModel.find(convertFilter(filters)).countDocuments()
+      return this.MongooseModel.count(convertFilter(filters))
     }
 
     async find(filters = {}, { limit = 20, offset = 0, sort = {} }: FindOptions) {
@@ -90,12 +84,12 @@ class Resource extends BaseResource {
       ))
     }
 
-    async findOne(id) {
+    async findOne(id:string) {
       const mongooseObject = await this.MongooseModel.findById(id)
       return new BaseRecord(Resource.stringifyId(mongooseObject), this)
     }
 
-    async findMany(ids) {
+    async findMany(ids: string[]) {
       const mongooseObjects = await this.MongooseModel.find(
         { _id: ids },
         {},
@@ -128,7 +122,7 @@ class Resource extends BaseResource {
 
     async update(id, params) {
       const parsedParams = this.parseParams(params)
-      const unflattedParams = unflatten(parsedParams)
+      const unflattedParams = flat.unflatten(parsedParams)
       try {
         const mongooseObject = await this.MongooseModel.findOneAndUpdate({
           _id: id,

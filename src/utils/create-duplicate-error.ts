@@ -5,7 +5,9 @@ const createDuplicateMessage = message => ({
   message,
 })
 
-export const createDuplicateError = ({ keyValue: duplicateEntry, errmsg }, document) => {
+export const createDuplicateError = (
+  { keyValue: duplicateEntry, errmsg }, document,
+): ValidationError => {
   if (!duplicateEntry) {
     const duplicatedKey = Object.keys(document).find(key => errmsg.includes(key))
 
