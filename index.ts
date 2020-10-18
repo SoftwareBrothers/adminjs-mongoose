@@ -84,7 +84,8 @@
  * @memberof module:@admin-bro/mongoose
  * @static
  */
-const Database = require('./src/database')
+import Database from './src/database'
+import Resource from './src/resource'
 
 /**
  * Implementation of {@link BaseResource} for Mongoose Adapter
@@ -93,6 +94,6 @@ const Database = require('./src/database')
  * @memberof module:@admin-bro/mongoose
  * @static
  */
-const Resource = require('./src/resource')
 
 module.exports = { Database, Resource }
+export { Database, Resource }

@@ -1,4 +1,4 @@
-module.exports = {
+export const SAMPLE_VALIDATION_ERROR = {
   _message: 'User validation failed',
   errors: {
     email: {

@@ -1,4 +1,4 @@
-module.exports = {
+export const SAMPLE_CAST_ARRAY_ERROR = {
   stringValue: '""',
   kind: 'ObjectId',
   value: '',
