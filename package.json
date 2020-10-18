@@ -10,6 +10,7 @@
     "test": "jest --config ./test/jest.json --runInBand",
     "cover": "jest --config ./test/jest.json --runInBand --coverage",
     "lint": "eslint './test/**/*.ts' './src/**/*'",
+    "check:all": "yarn lint && yarn build && yarn test",
     "release": "semantic-release"
   },
   "repository": {
