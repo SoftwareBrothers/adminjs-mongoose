@@ -9,7 +9,7 @@
     "build": "rm -rf lib && tsc",
     "test": "jest --config ./test/jest.json --runInBand",
     "cover": "jest --config ./test/jest.json --runInBand --coverage",
-    "lint": "eslint './test/**/*.ts' './src/**/*'",
+    "lint": "eslint './test/**/*.ts' './src/**/*.ts'",
     "check:all": "yarn lint && yarn build && yarn test",
     "release": "semantic-release"
   },
