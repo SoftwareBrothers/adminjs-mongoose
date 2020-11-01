@@ -1,12 +1,16 @@
 {
   "name": "@admin-bro/mongoose",
-  "version": "1.0.2",
+  "version": "1.1.0-beta.3",
   "description": "Mongoose adapter for admin-bro",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha spec/index.js",
-    "cover": "NODE_ENV=test ./node_modules/nyc/bin/nyc.js --reporter=html -x=spec -x=coverage  --all=true npm test",
-    "lint": "./node_modules/eslint/bin/eslint.js './spec/**/*.js' './src/**/*.js'",
+    "dev": "rm -rf lib && tsc --watch",
+    "build": "rm -rf lib && tsc",
+    "test": "jest --config ./test/jest.json --runInBand",
+    "cover": "jest --config ./test/jest.json --runInBand --coverage",
+    "lint": "eslint './test/**/*.ts' './src/**/*.ts'",
+    "check:all": "yarn lint && yarn build && yarn test",
     "release": "semantic-release"
   },
   "repository": {
@@ -20,7 +24,7 @@
   },
   "homepage": "https://github.com/SoftwareBrothers/admin-bro-mongoose#readme",
   "peerDependencies": {
-    "admin-bro": "^3.0.0",
+    "admin-bro": ">=3.3.1",
     "mongoose": ">=5"
   },
   "dependencies": {
@@ -29,22 +33,24 @@
     "lodash": "^4.17.11"
   },
   "devDependencies": {
-    "admin-bro": "^3.0.0",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@semantic-release/git": "^9.0.0",
-    "semantic-release-slack-bot": "^1.6.2",
-    "semantic-release": "^17.0.7",
-    "husky": "^4.2.5",
-    "chai": "^4.2.0",
+    "@types/jest": "^26.0.14",
+    "@types/mongoose": "^5.7.36",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "@typescript-eslint/parser": "^4.4.1",
+    "admin-bro": "^3.3.1",
     "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "factory-girl": "^5.0.4",
-    "mocha": "^5.2.0",
+    "husky": "^4.2.5",
+    "jest": "^26.5.3",
     "mongoose": "^5.9.7",
-    "nyc": "^12.0.2",
-    "sinon": "^7.1.1",
-    "sinon-chai": "^3.3.0"
+    "semantic-release": "^17.0.7",
+    "semantic-release-slack-bot": "^1.6.2",
+    "ts-jest": "^26.4.1",
+    "typescript": "^4.0.3"
   }
 }
