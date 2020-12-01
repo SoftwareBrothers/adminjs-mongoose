@@ -131,6 +131,7 @@ class Resource extends BaseResource {
         }, {
           new: true,
           runValidators: true,
+          context: 'query'
         })
         return Resource.stringifyId(mongooseObject.toObject())
       } catch (error) {
