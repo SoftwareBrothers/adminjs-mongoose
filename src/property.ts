@@ -1,4 +1,4 @@
-import { BaseProperty } from 'admin-bro'
+import { BaseProperty, PropertyType } from 'admin-bro'
 
 const ID_PROPERTY = '_id'
 const VERSION_KEY_PROPERTY = '__v'
@@ -53,7 +53,7 @@ class Property extends BaseProperty {
         if (this.reference()) {
           return 'reference'
         }
-        return 'string'
+        return 'id' as PropertyType
       case 'Decimal128':
         return 'float'
       default:
