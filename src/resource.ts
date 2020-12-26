@@ -1,5 +1,4 @@
 import { BaseRecord, BaseResource, flat } from 'admin-bro'
-import mongoose from 'mongoose'
 import { get } from 'lodash'
 import { FindOptions } from './utils/filter.types'
 import Property from './property'
@@ -7,7 +6,7 @@ import { convertFilter } from './utils/convert-filter'
 import { createValidationError } from './utils/create-validation-error'
 import { createDuplicateError } from './utils/create-duplicate-error'
 import { createCastError } from './utils/create-cast-error'
-
+import { MongooseModelType } from './types/MongooseModelType'
 import errors from './utils/errors'
 
 const { MONGOOSE_CAST_ERROR, MONGOOSE_DUPLICATE_ERROR_CODE, MONGOOSE_VALIDATION_ERROR } = errors
@@ -24,11 +23,11 @@ class Resource extends BaseResource {
      * @private
      * @see https://mongoosejs.com/docs/models.html
      */
-    public readonly MongooseModel: mongoose.Model<any>;
+    public readonly MongooseModel: MongooseModelType<any>;
 
     /**
      * Initialize the class with the Resource name
-     * @param {MongooseModel} MongooseModel Class which subclass mongoose.Model
+     * @param {MongooseModelType} MongooseModel Class which subclass mongoose.Model
      * @memberof Resource
      */
     constructor(MongooseModel) {
@@ -36,8 +35,8 @@ class Resource extends BaseResource {
       this.MongooseModel = MongooseModel
     }
 
-    static isAdapterFor(MoongooseModel) {
-      return get(MoongooseModel, 'base.constructor.name') === 'Mongoose'
+    static isAdapterFor(MongooseModel) {
+      return get(MongooseModel, 'base.constructor.name') === 'Mongoose'
     }
 
     databaseName() {
@@ -77,7 +76,7 @@ class Resource extends BaseResource {
       }
       const mongooseObjects = await this.MongooseModel
         .find(convertFilter(filters), {}, {
-          skip: offset, limit, sort: sortingParam,
+          skip: offset, limit, sort: sortingParam, autopopulate: false,
         })
       return mongooseObjects.map(mongooseObject => new BaseRecord(
         Resource.stringifyId(mongooseObject), this,
@@ -85,7 +84,8 @@ class Resource extends BaseResource {
     }
 
     async findOne(id:string) {
-      const mongooseObject = await this.MongooseModel.findById(id)
+      // @ts-ignore
+      const mongooseObject = await this.MongooseModel.findById(id, {}, { autopopulate: false })
       return new BaseRecord(Resource.stringifyId(mongooseObject), this)
     }
 
@@ -93,6 +93,7 @@ class Resource extends BaseResource {
       const mongooseObjects = await this.MongooseModel.find(
         { _id: ids },
         {},
+        { autopopulate: false },
       )
       return mongooseObjects.map(mongooseObject => (
         new BaseRecord(Resource.stringifyId(mongooseObject), this)
