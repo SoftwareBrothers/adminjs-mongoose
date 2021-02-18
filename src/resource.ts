@@ -71,7 +71,7 @@ class Resource extends BaseResource {
     }
 
     async count(filters = null) {
-      return this.MongooseModel.count(convertFilter(filters))
+      return this.MongooseModel.countDocuments(convertFilter(filters))
     }
 
     async find(filters = {}, { limit = 20, offset = 0, sort = {} }: FindOptions) {
@@ -164,7 +164,7 @@ class Resource extends BaseResource {
       // raw object it changes _id field not to a string but to an object.
       // stringify/parse is a path found here: https://github.com/Automattic/mongoose/issues/2790
       // @todo We can somehow speed this up
-      const strinigified = JSON.stringify(mongooseObj)
+      const strinigified = JSON.stringify('toObject' in mongooseObj ? mongooseObj.toObject({getters: true, virtuals: true}): mongooseObj)
       return JSON.parse(strinigified)
     }
 
