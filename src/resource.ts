@@ -55,6 +55,10 @@ class Resource extends BaseResource {
     id() {
       return this.MongooseModel.modelName
     }
+    
+    get selectFields(){
+      return Object.keys(this.MongooseModel.schema.paths).join(' ');
+    }
 
     properties() {
       return Object.entries(this.MongooseModel.schema.paths).map(([, path], position) => (
@@ -77,7 +81,7 @@ class Resource extends BaseResource {
       }
       const mongooseObjects = await this.MongooseModel
         .find(convertFilter(filters), {}, {
-          skip: offset, limit, sort: sortingParam,
+          skip: offset, limit, sort: sortingParam, select: this.selectFields
         })
       return mongooseObjects.map(mongooseObject => new BaseRecord(
         Resource.stringifyId(mongooseObject), this,
@@ -85,7 +89,7 @@ class Resource extends BaseResource {
     }
 
     async findOne(id:string) {
-      const mongooseObject = await this.MongooseModel.findById(id)
+      const mongooseObject = await this.MongooseModel.findById(id).select(this.selectFields)
       return new BaseRecord(Resource.stringifyId(mongooseObject), this)
     }
 
@@ -93,6 +97,7 @@ class Resource extends BaseResource {
       const mongooseObjects = await this.MongooseModel.find(
         { _id: ids },
         {},
+        {select: this.selectFields}
       )
       return mongooseObjects.map(mongooseObject => (
         new BaseRecord(Resource.stringifyId(mongooseObject), this)
