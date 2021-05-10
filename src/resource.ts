@@ -55,7 +55,7 @@ class Resource extends BaseResource {
     id() {
       return this.MongooseModel.modelName
     }
-    
+
     get selectFields(){
       return Object.keys(this.MongooseModel.schema.paths).join(' ');
     }
@@ -164,7 +164,7 @@ class Resource extends BaseResource {
       // raw object it changes _id field not to a string but to an object.
       // stringify/parse is a path found here: https://github.com/Automattic/mongoose/issues/2790
       // @todo We can somehow speed this up
-      const strinigified = JSON.stringify('toObject' in mongooseObj ? mongooseObj.toObject({getters: true, virtuals: true}): mongooseObj)
+      const strinigified = JSON.stringify(mongooseObj && 'toObject' in mongooseObj ? mongooseObj.toObject({getters: true, virtuals: true}): mongooseObj)
       return JSON.parse(strinigified)
     }
 

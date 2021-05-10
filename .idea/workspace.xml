@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:npm_and_yarn" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:feat" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:fix" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:upstream" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:upstream" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:upstream" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:npm_and_yarn" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:upstream" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:feat" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:upstream" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:fix" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="423a3884-174d-47fd-aabb-2543f773ec2c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/lib/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/index.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/database.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/database.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/database.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/index.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/property.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/property.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/property.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/resource.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/resource.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/resource.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/convert-filter.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/convert-filter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/convert-filter.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/create-cast-error.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/create-cast-error.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/create-cast-error.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/create-duplicate-error.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/create-duplicate-error.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/create-duplicate-error.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/create-validation-error.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/create-validation-error.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/create-validation-error.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/errors.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/errors.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/errors.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/filter.types.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/filter.types.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/filter.types.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/database.spec.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/database.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/database.spec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/errors/create-cast-error.spec.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/errors/create-cast-error.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/errors/create-cast-error.spec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/errors/create-validation-error.spec.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/errors/create-validation-error.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/errors/create-validation-error.spec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/duplicate-error.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/duplicate-error.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/duplicate-error.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/mongoose-cast-array-error.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/mongoose-cast-array-error.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/mongoose-cast-array-error.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/mongoose-cast-error.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/mongoose-cast-error.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/mongoose-cast-error.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/mongoose-nested-validation-error.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/mongoose-nested-validation-error.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/mongoose-nested-validation-error.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/mongoose-validation-error.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/mongoose-validation-error.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/mongoose-validation-error.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/valid-user-record.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/valid-user-record.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/fixtures/valid-user-record.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/property.spec.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/property.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/property.spec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/constructor.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/constructor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/constructor.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/count.spec.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/count.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/count.spec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/create.spec.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/create.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/create.spec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/delete.spec.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/delete.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/delete.spec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/find.spec.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/find.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/find.spec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/name.spec.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/name.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/name.spec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/parseParams.spec.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/parseParams.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/parseParams.spec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/position.spec.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/position.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/position.spec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/properties.spec.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/properties.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/properties.spec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/property.spec.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/property.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/property.spec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/update.spec.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/update.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/resource/update.spec.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/utils/beforeEach.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/utils/beforeEach.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/utils/beforeEach.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/utils/models.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/utils/models.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/utils/models.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/utils/teardown.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/utils/teardown.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test/utils/teardown.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1sL8Y4ojohUMKYFiVRUoD28zPUl" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="ts.external.directory.path" value="D:\WebStorm 2020.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="423a3884-174d-47fd-aabb-2543f773ec2c" name="Default Changelist" comment="" />
+      <created>1620640553632</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1620640553632</updated>
+      <workItem from="1620640555856" duration="742000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1620641295155">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1620641295155" />
+  </component>
+</project>
