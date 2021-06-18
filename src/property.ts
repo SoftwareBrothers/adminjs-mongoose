@@ -1,4 +1,4 @@
-import { BaseProperty } from 'admin-bro'
+import { BaseProperty } from 'adminjs'
 
 const ID_PROPERTY = '_id'
 const VERSION_KEY_PROPERTY = '__v'

@@ -1,7 +1,7 @@
 {
-  "name": "@admin-bro/mongoose",
+  "name": "@adminjs/mongoose",
   "version": "1.1.0",
-  "description": "Mongoose adapter for admin-bro",
+  "description": "Mongoose adapter for adminjs",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -15,16 +15,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SoftwareBrothers/admin-bro-mongoose.git"
+    "url": "git+https://github.com/SoftwareBrothers/adminjs-mongoose.git"
   },
   "author": "Wojciech Krysiak",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SoftwareBrothers/admin-bro-mongoose/issues"
+    "url": "https://github.com/SoftwareBrothers/adminjs-mongoose/issues"
   },
-  "homepage": "https://github.com/SoftwareBrothers/admin-bro-mongoose#readme",
+  "homepage": "https://github.com/SoftwareBrothers/adminjs-mongoose#readme",
   "peerDependencies": {
-    "admin-bro": ">=3.3.1",
+    "adminjs": ">=3.3.1",
     "mongoose": ">=5"
   },
   "dependencies": {
@@ -40,7 +40,7 @@
     "@types/mongoose": "^5.7.36",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
-    "admin-bro": "^3.3.1",
+    "adminjs": "^3.3.1",
     "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
