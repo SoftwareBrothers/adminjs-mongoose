@@ -1,4 +1,4 @@
-import { ValidationError } from 'admin-bro'
+import { ValidationError } from 'adminjs'
 
 
 export const createCastError = (originalError): ValidationError => {

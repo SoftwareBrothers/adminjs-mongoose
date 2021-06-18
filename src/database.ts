@@ -1,4 +1,4 @@
-import { BaseDatabase } from 'admin-bro'
+import { BaseDatabase } from 'adminjs'
 import type { Connection } from 'mongoose'
 
 import Resource from './resource'
