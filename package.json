@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/SoftwareBrothers/adminjs-mongoose#readme",
   "peerDependencies": {
-    "adminjs": ">=3.3.1",
+    "adminjs": "^5.0.0",
     "mongoose": ">=5"
   },
   "dependencies": {
@@ -40,7 +40,7 @@
     "@types/mongoose": "^5.7.36",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
-    "adminjs": "^3.3.1",
+    "adminjs": "^5.0.0",
     "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
