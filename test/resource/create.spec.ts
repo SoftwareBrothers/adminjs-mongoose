@@ -1,4 +1,4 @@
-import { ValidationError } from 'admin-bro'
+import { ValidationError } from 'adminjs'
 import { factory } from 'factory-girl'
 import Resource from '../../src/resource'
 import validUserRecord from '../fixtures/valid-user-record'

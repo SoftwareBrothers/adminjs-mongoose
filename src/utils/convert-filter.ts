@@ -2,7 +2,7 @@ import escape from 'escape-regexp'
 import mongoose from 'mongoose'
 
 /**
- * Changes AdminBro's {@link Filter} to an object acceptible by a mongoose query.
+ * Changes AdminJS's {@link Filter} to an object acceptible by a mongoose query.
  *
  * @param {Filter} filter
  * @private

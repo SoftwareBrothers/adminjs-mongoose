@@ -1,5 +1,5 @@
 /**
- * @module @admin-bro/mongoose
+ * @module @adminjs/mongoose
  * @subcategory Adapters
  * @section modules
  * @load ./index.doc.md
