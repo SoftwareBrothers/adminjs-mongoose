@@ -1,4 +1,4 @@
-import { BaseRecord, Filter } from 'admin-bro'
+import { BaseRecord, Filter } from 'adminjs'
 import { factory } from 'factory-girl'
 import Resource from '../../src/resource'
 import { User } from '../utils/models'

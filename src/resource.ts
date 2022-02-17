@@ -1,4 +1,4 @@
-import { BaseRecord, BaseResource, flat } from 'admin-bro'
+import { BaseRecord, BaseResource, flat } from 'adminjs'
 import mongoose from 'mongoose'
 import { get } from 'lodash'
 import { FindOptions } from './utils/filter.types'
@@ -170,7 +170,7 @@ class Resource extends BaseResource {
      * - changes all empty strings to `null`s for the ObjectID properties.
      * - changes all empty strings to [] for array fields
      *
-     * @param   {Object}  params  received from AdminBro form
+     * @param   {Object}  params  received from AdminJS form
      *
      * @return  {Object}          converted params
      */
