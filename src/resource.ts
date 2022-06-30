@@ -67,10 +67,10 @@ class Resource extends BaseResource {
     }
 
     async count(filters = null) {
-        if (Object.keys(convertFilter(filters)).length > 0) {
-            return this.MongooseModel.count(convertFilter(filters))
-        }
-        return this.MongooseModel.find(convertFilter(filters)).estimatedDocumentCount()
+       if (Object.keys(convertFilter(filters)).length > 0) {
+           return this.MongooseModel.count(convertFilter(filters))
+       }
+       return this.MongooseModel.find(convertFilter(filters)).estimatedDocumentCount()
     }
 
     async find(filters = {}, { limit = 20, offset = 0, sort = {} }: FindOptions) {
