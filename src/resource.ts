@@ -68,7 +68,7 @@ class Resource extends BaseResource {
 
     async count(filters = null) {
       if (Object.keys(convertFilter(filters)).length > 0) {
-          return this.MongooseModel.count(convertFilter(filters))
+        return this.MongooseModel.count(convertFilter(filters))
       }
       return this.MongooseModel.estimatedDocumentCount()
     }
