@@ -16,7 +16,12 @@ export const convertFilter = (filter) => {
     switch (property.type()) {
     case 'string':
       return {
-        [property.name()]: { $regex: escape(value), $options: 'i' },
+        [property.name()]: { $regex: new RegExp(
+          value
+            .split(' ')
+            .map((word) => '(?=.*\\b' + escape(word) + '\\b)')
+            .join('') + '.+'
+        ), $options: 'i' },
         ...memo,
       }
     case 'date':
