@@ -70,10 +70,13 @@ class Property extends BaseProperty {
     }
 
     reference() {
-      if (this.isArray()) {
-        return this.mongoosePath.caster.options && this.mongoosePath.caster.options.ref
-      }
-      return this.mongoosePath.options && this.mongoosePath.options.ref
+      const ref = this.isArray()
+        ? this.mongoosePath.caster.options?.ref
+        : this.mongoosePath.options?.ref
+
+      if (typeof ref === 'function') return ref.modelName
+
+      return ref
     }
 
     isVisible() {
