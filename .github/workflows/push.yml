@@ -10,11 +10,11 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: '10.x'
+          node-version: 18
       - uses: actions/cache@v1
         id: yarn-cache
         with:
@@ -37,11 +37,11 @@ jobs:
           - 27017:27017
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: '10.x'
+          node-version: 18
       - uses: actions/cache@v1
         id: yarn-cache
         with:
