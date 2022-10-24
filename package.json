@@ -1,6 +1,6 @@
 {
   "name": "@adminjs/mongoose",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Mongoose adapter for adminjs",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
