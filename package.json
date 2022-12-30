@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "escape-regexp": "0.0.1",
-    "flat": "^4.1.0",
+    "flat": "^5.0.1",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
