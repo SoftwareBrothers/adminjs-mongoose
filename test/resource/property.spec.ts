@@ -1,6 +1,6 @@
-import Resource from '../../src/resource'
-import { User } from '../utils/models'
-import Property from '../../src/property'
+import Property from '../../src/property.js'
+import Resource from '../../src/resource.js'
+import { User } from '../utils/models.js'
 
 describe('Resource #property', () => {
   let resource

@@ -1,7 +1,7 @@
-import { BaseDatabase } from 'adminjs'
-import type { Connection } from 'mongoose'
+import { BaseDatabase } from 'adminjs';
+import type { Connection } from 'mongoose';
 
-import Resource from './resource'
+import Resource from './resource.js';
 
 class Database extends BaseDatabase {
   private readonly connection: Connection;

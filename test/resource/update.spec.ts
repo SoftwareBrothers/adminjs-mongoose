@@ -1,5 +1,5 @@
-import Resource from '../../src/resource'
-import { Article } from '../utils/models'
+import Resource from '../../src/resource.js'
+import { Article } from '../utils/models.js'
 
 describe('Resource #update', () => {
   it('changes record and returns updated', async () => {

@@ -1,6 +1,6 @@
-import { createCastError } from '../../src/utils/create-cast-error'
-import { SAMPLE_CAST_ERROR } from '../fixtures/mongoose-cast-error'
-import { SAMPLE_CAST_ARRAY_ERROR } from '../fixtures/mongoose-cast-array-error'
+import { createCastError } from '../../src/utils/create-cast-error.js'
+import { SAMPLE_CAST_ARRAY_ERROR } from '../fixtures/mongoose-cast-array-error.js'
+import { SAMPLE_CAST_ERROR } from '../fixtures/mongoose-cast-error.js'
 
 describe('createCastError', () => {
   describe('throwin cast error on update after one key has error', () => {

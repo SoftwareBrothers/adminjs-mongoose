@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-import MongooseDatabase from '../src/database'
-import Resource from '../src/resource'
+import MongooseDatabase from '../src/database.js'
+import Resource from '../src/resource.js'
 
 describe('Database', () => {
   describe('#resources', () => {

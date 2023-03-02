@@ -1,6 +1,6 @@
-import { Article, User } from './utils/models'
+import { Article, User } from './utils/models.js'
 
-import Property from '../src/property'
+import Property from '../src/property.js'
 
 describe('Property', () => {
   describe('#availableValues', () => {

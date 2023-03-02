@@ -1,6 +1,6 @@
-import { createValidationError } from '../../src/utils/create-validation-error'
-import { SAMPLE_VALIDATION_ERROR } from '../fixtures/mongoose-validation-error'
-import { SAMPLE_NESTED_VALIDATION_ERROR } from '../fixtures/mongoose-nested-validation-error'
+import { createValidationError } from '../../src/utils/create-validation-error.js'
+import { SAMPLE_NESTED_VALIDATION_ERROR } from '../fixtures/mongoose-nested-validation-error.js'
+import { SAMPLE_VALIDATION_ERROR } from '../fixtures/mongoose-validation-error.js'
 
 describe('#createValidationError', () => {
   describe('regular error', () => {
