@@ -50,6 +50,7 @@ class Property extends BaseProperty {
       case 'Embedded':
         return 'mixed'
       case 'ObjectID':
+      case 'ObjectId':
         if (this.reference()) {
           return 'reference'
         }
