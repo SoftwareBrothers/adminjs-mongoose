@@ -2,7 +2,7 @@
   "compilerOptions": {
     "moduleResolution": "nodenext",
     "module": "nodenext",
-    "target": "ES2018",
+    "target": "esnext",
     "sourceMap": true,
     "outDir": "lib",
     "esModuleInterop": true,
