@@ -1,7 +1,6 @@
 import Resource from '../../src/resource.js'
 import { User } from '../utils/models.js'
 
-
 describe('Resource #parseParams', () => {
   let resource
 
