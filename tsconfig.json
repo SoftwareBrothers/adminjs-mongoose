@@ -11,10 +11,13 @@
     "skipLibCheck": true,
     "allowJs": true
   },
+  "include": [
+    "./src"
+  ],
   "exclude": [
     "node_modules",
     "lib",
     "spec",
-    "commitlint.config.js"
+    "commitlint.config.cjs"
   ]
 }

@@ -1,13 +1,13 @@
 import { BaseRecord, BaseResource, flat } from 'adminjs'
-import { get } from 'lodash'
+import get from 'lodash/get.js'
 import mongoose from 'mongoose'
+
 import Property from './property.js'
 import { convertFilter } from './utils/convert-filter.js'
 import { createCastError } from './utils/create-cast-error.js'
 import { createDuplicateError } from './utils/create-duplicate-error.js'
 import { createValidationError } from './utils/create-validation-error.js'
 import { FindOptions } from './utils/filter.types.js'
-
 import errors from './utils/errors.js'
 
 const { MONGOOSE_CAST_ERROR, MONGOOSE_DUPLICATE_ERROR_CODE, MONGOOSE_VALIDATION_ERROR } = errors
