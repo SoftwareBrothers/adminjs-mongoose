@@ -11,7 +11,8 @@
   },
   "scripts": {
     "dev": "rm -rf lib && tsc --watch",
-    "build": "rm -rf lib && tsc",
+    "clean": "rm -rf lib",
+    "build": "tsc",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --config ./test/jest.json --runInBand",
     "cover": "jest --config ./test/jest.json --runInBand --coverage",
     "lint": "eslint './test/**/*.ts' './src/**/*.ts'",

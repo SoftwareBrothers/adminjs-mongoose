@@ -3,7 +3,7 @@
     "moduleResolution": "nodenext",
     "module": "nodenext",
     "target": "esnext",
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "lib",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -12,7 +12,7 @@
     "allowJs": true
   },
   "include": [
-    "./src"
+    "./src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
