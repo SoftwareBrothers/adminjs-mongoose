@@ -1,6 +1,6 @@
 {
   "name": "@adminjs/mongoose",
-  "version": "4.0.0-beta.2",
+  "version": "4.0.0-beta.3",
   "description": "Mongoose adapter for adminjs",
   "type": "module",
   "exports": {
