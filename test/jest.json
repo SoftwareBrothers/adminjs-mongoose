@@ -3,10 +3,26 @@
   "rootDir": ".",
   "testEnvironment": "node",
   "testRegex": ".spec.ts$",
+  "extensionsToTreatAsEsm": [".ts"],
+  "transformIgnorePatterns": ["node_modules"],
   "transform": {
-    "^.+\\.(t|j)sx?$": "ts-jest"
+    "^.+\\.(t|j)sx?$": [
+      "ts-jest",
+      { 
+        "useESM": true,
+        "tsconfig": "./tsconfig.test.json",
+        "isolatedModules": true
+      }
+    ]
   },
+  "moduleNameMapper": {
+    "^(\\.{1,2}/.*)\\.js$": "$1"
+  },
+  "testTimeout": 10000,
+  "preset": "ts-jest/presets/default-esm",
+  "verbose": true,
+  "silent": true,
+  "forceExit": true,
   "setupFilesAfterEnv": ["./utils/beforeEach.ts"],
-  "globalTeardown": "./utils/teardown.ts",
-  "testTimeout": 10000
+  "globalTeardown": "./utils/teardown.ts"
 }

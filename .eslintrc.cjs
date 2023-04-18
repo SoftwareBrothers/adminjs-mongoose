@@ -10,7 +10,7 @@ module.exports = {
     parser: "@typescript-eslint/parser",
     plugins: ["@typescript-eslint/eslint-plugin"],
     'parserOptions': {
-        'ecmaVersion': 2018,
+        'ecmaVersion': 20,
         'sourceType': 'module'
     },
     'rules': {
@@ -41,12 +41,12 @@ module.exports = {
     },
     overrides: [
         {
-          files: ['*-test.js', '*.spec.js'],
-          rules: {
-            'no-unused-expressions': 'off',
-            'func-names': 'off',
-            'prefer-arrow-callback': 'off'
-          }
+            files: ['*-test.js', '*.spec.js'],
+            rules: {
+                'no-unused-expressions': 'off',
+                'func-names': 'off',
+                'prefer-arrow-callback': 'off'
+            }
         }
     ],
     globals: {

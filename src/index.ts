@@ -5,5 +5,7 @@
  * @load ./index.doc.md
  */
 
-export { default as Resource } from './resource'
-export { default as Database } from './database'
+export { default as Database } from './database.js'
+export { default as Resource } from './resource.js'
+export { default as Property } from './property.js'
+export * from './utils/index.js'

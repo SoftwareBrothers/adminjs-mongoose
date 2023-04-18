@@ -1,6 +1,5 @@
-import Resource from '../../src/resource'
-import { User } from '../utils/models'
-
+import Resource from '../../src/resource.js'
+import { User } from '../utils/models.js'
 
 describe('Resource #position', () => {
   it('returns position of a parent field', () => {

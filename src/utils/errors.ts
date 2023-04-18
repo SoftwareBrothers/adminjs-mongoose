@@ -1,4 +1,3 @@
-
 export default {
   // Error thrown by mongoose in case of validation error
   MONGOOSE_VALIDATION_ERROR: 'ValidationError',

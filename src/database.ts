@@ -1,10 +1,10 @@
 import { BaseDatabase } from 'adminjs'
 import type { Connection } from 'mongoose'
 
-import Resource from './resource'
+import Resource from './resource.js'
 
 class Database extends BaseDatabase {
-  private readonly connection: Connection;
+  private readonly connection: Connection
 
   constructor(connection) {
     super(connection)
@@ -16,7 +16,7 @@ class Database extends BaseDatabase {
   }
 
   resources() {
-    return this.connection.modelNames().map(name => (
+    return this.connection.modelNames().map((name) => (
       new Resource(this.connection.model(name))
     ))
   }

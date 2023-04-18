@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
-import Resource from '../../src/resource'
-import { User } from '../utils/models'
-import Property from '../../src/property'
+import Property from '../../src/property.js'
+import Resource from '../../src/resource.js'
+import { User } from '../utils/models.js'
 
 describe('Resource #properties', () => {
   let resource
@@ -18,13 +18,12 @@ describe('Resource #properties', () => {
   })
 
   it('sets the position of properties', () => {
-    expect(returnedProperties.map(p => p.position())).toEqual([0, 1, 2, 3, 4, 5, 6, 7])
+    expect(returnedProperties.map((p) => p.position())).toEqual([0, 1, 2, 3, 4, 5, 6, 7])
   })
 
   it('returns instances of Property class', async () => {
     expect(returnedProperties[0]).toBeInstanceOf(Property)
   })
-
 
   it('returns all fields for nested properties', () => {
     const Nested = mongoose.model('Nested', new mongoose.Schema({

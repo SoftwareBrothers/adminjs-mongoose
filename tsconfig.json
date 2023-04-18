@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "ES2018",
-    "sourceMap": true,
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
+    "target": "esnext",
+    "sourceMap": false,
     "outDir": "lib",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -10,10 +11,13 @@
     "skipLibCheck": true,
     "allowJs": true
   },
+  "include": [
+    "./src/**/*.ts"
+  ],
   "exclude": [
     "node_modules",
     "lib",
     "spec",
-    "commitlint.config.js"
+    "commitlint.config.cjs"
   ]
 }
