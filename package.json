@@ -31,7 +31,7 @@
   "homepage": "https://github.com/SoftwareBrothers/adminjs-mongoose#readme",
   "peerDependencies": {
     "adminjs": "^7.0.0",
-    "mongoose": ">=5"
+    "mongoose": ">=5 <8"
   },
   "dependencies": {
     "escape-regexp": "0.0.1",
