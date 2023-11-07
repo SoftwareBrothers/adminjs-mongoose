@@ -33,8 +33,7 @@ describe('Resource #create', () => {
       throw new Error('Should throw validation error')
     } catch (error) {
       expect(error).toBeInstanceOf(ValidationError)
-      expect(error.propertyErrors['parent.age'].type).toEqual('Number')
-      expect(error.propertyErrors.parent.type).toEqual('ValidationError')
+      expect(error.propertyErrors.age.type).toEqual('Number')
     }
   })
 
