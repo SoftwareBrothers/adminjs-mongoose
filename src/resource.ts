@@ -68,7 +68,7 @@ class Resource extends BaseResource {
 
     async count(filters = null) {
       if (Object.keys(convertFilter(filters)).length > 0) {
-        return this.MongooseModel.count(convertFilter(filters))
+        return this.MongooseModel.countDocuments(convertFilter(filters))
       }
       return this.MongooseModel.estimatedDocumentCount()
     }
@@ -155,7 +155,7 @@ class Resource extends BaseResource {
     }
 
     async delete(id) {
-      return this.MongooseModel.findOneAndRemove({ _id: id })
+      return this.MongooseModel.findOneAndDelete({ _id: id })
     }
 
     static stringifyId(mongooseObj) {
