@@ -4,10 +4,10 @@ const ID_PROPERTY = '_id'
 const VERSION_KEY_PROPERTY = '__v'
 
 class Property extends BaseProperty {
-    // TODO: Fix typings
-    public mongoosePath: any;
+  // TODO: Fix typings
+  public mongoosePath: any
 
-    /**
+  /**
      * Crates an object from mongoose schema path
      *
      * @param  {SchemaString}   path
@@ -32,98 +32,98 @@ class Property extends BaseProperty {
      *
      * property = new Property(schema.paths.email))
      */
-    constructor(path, position = 0) {
-      super({ path: path.path, position })
-      this.mongoosePath = path
-    }
+  constructor(path, position = 0) {
+    super({ path: path.path, position })
+    this.mongoosePath = path
+  }
 
-    instanceToType(mongooseInstance) {
-      switch (mongooseInstance) {
-      case 'String':
-        return 'string'
-      case 'Boolean':
-        return 'boolean'
-      case 'Number':
-        return 'number'
-      case 'Date':
-        return 'datetime'
-      case 'Embedded':
-        return 'mixed'
-      case 'ObjectID':
-      case 'ObjectId':
-        if (this.reference()) {
-          return 'reference'
-        }
-        return 'id' as PropertyType
-      case 'Decimal128':
-        return 'float'
-      default:
-        return 'string'
+  instanceToType(mongooseInstance) {
+    switch (mongooseInstance) {
+    case 'String':
+      return 'string'
+    case 'Boolean':
+      return 'boolean'
+    case 'Number':
+      return 'number'
+    case 'Date':
+      return 'datetime'
+    case 'Embedded':
+      return 'mixed'
+    case 'ObjectID':
+    case 'ObjectId':
+      if (this.reference()) {
+        return 'reference'
       }
+      return 'id' as PropertyType
+    case 'Decimal128':
+      return 'float'
+    default:
+      return 'string'
     }
+  }
 
-    name() {
-      return this.mongoosePath.path
+  name() {
+    return this.mongoosePath.path
+  }
+
+  isEditable() {
+    return this.name() !== VERSION_KEY_PROPERTY && this.name() !== ID_PROPERTY
+  }
+
+  reference() {
+    const ref = this.isArray()
+      ? this.mongoosePath.caster.options?.ref
+      : this.mongoosePath.options?.ref
+
+    if (typeof ref === 'function') return ref.modelName
+
+    return ref
+  }
+
+  isVisible() {
+    return this.name() !== VERSION_KEY_PROPERTY
+  }
+
+  isId() {
+    return this.name() === ID_PROPERTY
+  }
+
+  availableValues() {
+    return this.mongoosePath.enumValues?.length ? this.mongoosePath.enumValues : null
+  }
+
+  isArray() {
+    return this.mongoosePath.instance === 'Array'
+  }
+
+  subProperties() {
+    if (this.type() === 'mixed') {
+      const subPaths = Object.values(this.mongoosePath.caster.schema.paths)
+      return subPaths.map((p) => new Property(p))
     }
+    return []
+  }
 
-    isEditable() {
-      return this.name() !== VERSION_KEY_PROPERTY && this.name() !== ID_PROPERTY
-    }
-
-    reference() {
-      const ref = this.isArray()
-        ? this.mongoosePath.caster.options?.ref
-        : this.mongoosePath.options?.ref
-
-      if (typeof ref === 'function') return ref.modelName
-
-      return ref
-    }
-
-    isVisible() {
-      return this.name() !== VERSION_KEY_PROPERTY
-    }
-
-    isId() {
-      return this.name() === ID_PROPERTY
-    }
-
-    availableValues() {
-      return this.mongoosePath.enumValues?.length ? this.mongoosePath.enumValues : null
-    }
-
-    isArray() {
-      return this.mongoosePath.instance === 'Array'
-    }
-
-    subProperties() {
-      if (this.type() === 'mixed') {
-        const subPaths = Object.values(this.mongoosePath.caster.schema.paths)
-        return subPaths.map(p => new Property(p))
+  type() {
+    if (this.isArray()) {
+      let { instance } = this.mongoosePath.caster
+      // For array of embedded schemas mongoose returns null for caster.instance
+      // That is why we have to check if caster has a schema
+      if (!instance && this.mongoosePath.caster.schema) {
+        instance = 'Embedded'
       }
-      return []
+      return this.instanceToType(instance)
     }
+    return this.instanceToType(this.mongoosePath.instance)
+  }
 
-    type() {
-      if (this.isArray()) {
-        let { instance } = this.mongoosePath.caster
-        // For array of embedded schemas mongoose returns null for caster.instance
-        // That is why we have to check if caster has a schema
-        if (!instance && this.mongoosePath.caster.schema) {
-          instance = 'Embedded'
-        }
-        return this.instanceToType(instance)
-      }
-      return this.instanceToType(this.mongoosePath.instance)
-    }
+  isSortable() {
+    return this.type() !== 'mixed' && !this.isArray()
+  }
 
-    isSortable() {
-      return this.type() !== 'mixed' && !this.isArray()
-    }
-
-    isRequired() {
-      return !!this.mongoosePath.validators?.find?.(validator => validator.type === 'required')
-    }
+  isRequired() {
+    return !!this.mongoosePath.validators?.find?.((validator) => validator.type === 'required')
+  }
 }
 
 export default Property

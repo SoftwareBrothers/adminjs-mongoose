@@ -63,7 +63,7 @@ class Resource extends BaseResource {
   }
 
   property(name:string) {
-    return this.properties().find(property => property.path() === name) ?? null
+    return this.properties().find((property) => property.path() === name) ?? null
   }
 
   async count(filters = null) {
@@ -73,6 +73,7 @@ class Resource extends BaseResource {
     return this.MongooseModel.estimatedDocumentCount()
   }
 
+  // eslint-disable-next-line default-param-last
   async find(filters = {}, { limit = 20, offset = 0, sort = {} }: FindOptions) {
     const { direction, sortBy } = sort
 
@@ -87,9 +88,9 @@ class Resource extends BaseResource {
       .find(convertFilter(filters), {}, {
         skip: offset, limit, sort: sortingParam,
       })
-    return mongooseObjects.map(mongooseObject => new BaseRecord(
-      Resource.stringifyId(mongooseObject), this,
-    ))
+    return mongooseObjects.map(
+      (mongooseObject) => new BaseRecord(Resource.stringifyId(mongooseObject), this),
+    )
   }
 
   async findOne(id:string) {
@@ -102,7 +103,7 @@ class Resource extends BaseResource {
       { _id: ids },
       {},
     )
-    return mongooseObjects.map(mongooseObject => (
+    return mongooseObjects.map((mongooseObject) => (
       new BaseRecord(Resource.stringifyId(mongooseObject), this)
     ))
   }
@@ -220,7 +221,7 @@ class Resource extends BaseResource {
             if (parsedParams[newPrefix] === '') {
               // this means we have an empty object here
               parsedParams[newPrefix] = {}
-            } else if (!Object.keys(parsedParams).some(key => key.startsWith(newPrefix))) {
+            } else if (!Object.keys(parsedParams).some((key) => key.startsWith(newPrefix))) {
               // we're past the last index of this array
               break
             } else {

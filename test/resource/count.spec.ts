@@ -3,7 +3,6 @@ import { factory } from 'factory-girl'
 import Resource from '../../src/resource'
 import { User } from '../utils/models'
 
-
 describe('Resource #count', () => {
   let resource
 

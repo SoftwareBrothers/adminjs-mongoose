@@ -1,7 +1,6 @@
 import Resource from '../../src/resource'
 import { User } from '../utils/models'
 
-
 describe('Resource', () => {
   describe('#constructor', () => {
     it('stores original model', () => {

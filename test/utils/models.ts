@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import { factory } from 'factory-girl'
 
-
 const globalAny = global as any
 
 // @ts-ignore
@@ -48,6 +47,6 @@ globalAny.Article = mongoose.model('Article', new mongoose.Schema({
 export const { User, Article, Pesel }: Record<string, mongoose.Model<any>> = globalAny
 
 factory.define('user', User, {
-  email: factory.sequence('User.email', n => `john@doe${n}.com`),
+  email: factory.sequence('User.email', (n) => `john@doe${n}.com`),
   passwordHash: 'somehashedpassword',
 })
