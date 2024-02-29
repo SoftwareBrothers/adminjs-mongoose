@@ -15,8 +15,13 @@ export const convertFilter = (filter) => {
     const { property, value } = filterProperty
     switch (property.type()) {
     case 'string':
+      let regexPattern = '';
+      if (property.name() === 'status')
+        regexPattern= '^' + escape(value) + '$';
+       else
+        regexPattern= escape(value);
       return {
-        [property.name()]: { $regex: escape(value), $options: 'i' },
+        [property.name()]: { $regex: regexPattern, $options: 'i' },
         ...memo,
       }
     case 'date':
